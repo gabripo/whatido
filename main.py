@@ -18,7 +18,7 @@ if __name__ == "__main__":
         screenshot_manager.set_scale_factor(0.3)
         screenshot_manager.capture_screenshot()
         handler.handle({'images': screenshot_manager.screenshots, 'query': 'What do you see on my screen?'})
-        print(history.get_history())
+        history.print_history()
         history.clear_history()
 
     if ANALYZE_ASSETS:
@@ -29,5 +29,5 @@ if __name__ == "__main__":
         ]
         for query in queries:
             handler.handle(query)
-        print(history.get_history())
+        history.print_history()
         history.clear_history()

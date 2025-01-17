@@ -20,6 +20,11 @@ class QueryHistory:
     def clear_history(self):
         self.history = []
 
+    def print_history(self):
+        for query in self.history:
+            print(f"role : {query["role"]}")
+            print(f"content : {query["content"]}")
+
 # Command Pattern
 class QueryCommander:
     def __init__(self, query_history: QueryHistory):
