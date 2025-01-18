@@ -40,11 +40,10 @@ class ScreenshotManager:
         self.screenshots.append(filepath)
     
     def _scale_screenshot(self, screenshot: np.array):
-        if self.scale_factor == DEFAULT_SCALE_FACTOR:
-            return screenshot
-        width = int(screenshot.shape[1] * self.scale_factor)
-        height = int(screenshot.shape[0] * self.scale_factor)
-        screenshot = cv2.resize(screenshot, (width, height), interpolation=cv2.INTER_AREA)
+        if self.scale_factor != DEFAULT_SCALE_FACTOR:
+            width = int(screenshot.shape[1] * self.scale_factor)
+            height = int(screenshot.shape[0] * self.scale_factor)
+            screenshot = cv2.resize(screenshot, (width, height), interpolation=cv2.INTER_AREA)
         screenshot = cv2.cvtColor(screenshot, cv2.COLOR_RGB2BGR)
         return screenshot
     
