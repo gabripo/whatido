@@ -16,7 +16,7 @@ if __name__ == "__main__":
     
     if ANALYZE_SCREEN:
         screenshot_manager = ScreenshotManager()
-        screenshot_manager.set_scale_factor(0.3)
+        screenshot_manager.set_scale_factor(1)
         screenshot_manager.capture_screenshot()
         handler.handle({'images': screenshot_manager.screenshots, 'query': 'What do you see on my screen?'})
         history.print_history()
