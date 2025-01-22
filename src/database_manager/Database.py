@@ -1,4 +1,5 @@
 import os
+import asyncio
 from abc import abstractmethod
 
 # Singleton Pattern
@@ -32,4 +33,6 @@ class Database:
 
     @abstractmethod
     def print(self):
-        pass
+        print(f"Files in the database {self.__class__.__name__}:\n")
+        for filename in self.files:
+            print(f"{filename}")
