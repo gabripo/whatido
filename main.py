@@ -1,6 +1,7 @@
 import os
 from src.chat_handler.Query import QueryHistory, QueryCommander, QueryHandler
 from src.screenshots_manager.Screenshot import ScreenshotManager
+from src.database_manager.Emails import DatabaseEmails
 
 model_name = 'llama3.2-vision'
 ANALYZE_SCREEN = True
@@ -37,3 +38,5 @@ if __name__ == "__main__":
         handler.handle({'query': 'what are you?'})
         history.print_history()
         history.clear_history()
+
+    de = DatabaseEmails('test')
