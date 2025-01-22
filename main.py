@@ -5,6 +5,7 @@ from src.screenshots_manager.Screenshot import ScreenshotManager
 model_name = 'llama3.2-vision'
 ANALYZE_SCREEN = True
 ANALYZE_ASSETS = True
+TEST_TEXT_QUERY = True
 
 if __name__ == "__main__":
     history = QueryHistory()
@@ -31,3 +32,7 @@ if __name__ == "__main__":
             handler.handle(query)
         history.print_history()
         history.clear_history()
+
+    if TEST_TEXT_QUERY:
+        handler.handle({'query': 'what are you?'})
+        history.print_history()
