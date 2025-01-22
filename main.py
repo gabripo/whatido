@@ -36,3 +36,4 @@ if __name__ == "__main__":
     if TEST_TEXT_QUERY:
         handler.handle({'query': 'what are you?'})
         history.print_history()
+        history.clear_history()
