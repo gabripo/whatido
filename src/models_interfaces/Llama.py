@@ -15,7 +15,7 @@ class LlamaVisionQuery:
         if include_history:
             self.messages.append(new_query)
         else:
-            self.messages = new_query
+            self.messages = [new_query]
         
         response = ollama.chat(
             model = self.model_name,
@@ -39,7 +39,7 @@ class LlamaTextQuery:
         if include_history:
             self.messages.append(new_query)
         else:
-            self.messages = new_query
+            self.messages = [new_query]
         
         response = ollama.chat(
             model = self.model_name,
