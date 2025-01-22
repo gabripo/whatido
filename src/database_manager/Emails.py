@@ -47,7 +47,7 @@ class DatabaseEmails(Database):
             )
         print(f"Response for query \"{query}\", call {call_number} has been generated!\n")
         self.num_emails += 1
-        return response
+        return response['content']
     
     def store(self):
         return super().store()
