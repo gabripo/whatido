@@ -5,6 +5,7 @@ from ..models_interfaces.Llama import LlamaTextQuery
 
 DEFAULT_QUERIES = ['generate an e-mail']
 DEFAULT_NUM_EMAILS_TO_GEN = 10
+DEFAULT_MAX_CONCURRENT_REQUESTS = 10
 
 class DatabaseEmails(Database):
     def __init__(self, path: str):
@@ -14,15 +15,12 @@ class DatabaseEmails(Database):
             'include_history': False,
             'consider_history': False
         }
-        self.semaphore = None
+        self.semaphore = asyncio.Semaphore(DEFAULT_MAX_CONCURRENT_REQUESTS)
 
     def create_folder(self) -> None:
         return super().create_folder()
 
     def build(self, queries: list[str] = DEFAULT_QUERIES, num_emails_to_gen: int = DEFAULT_NUM_EMAILS_TO_GEN):
-        max_concurrent_requests = 4
-        self.semaphore = asyncio.Semaphore(max_concurrent_requests)
-        
         generated_emails = asyncio.run(self._generate_emails(queries, num_emails_to_gen))
         print(generated_emails[0]) # debug
 
@@ -56,3 +54,6 @@ class DatabaseEmails(Database):
     
     def print(self):
         return super().print()
+    
+    def set_max_concurrent_requests(self, max_concurrent_requests: int = DEFAULT_MAX_CONCURRENT_REQUESTS):
+        self.semaphore = asyncio.Semaphore(max_concurrent_requests)
