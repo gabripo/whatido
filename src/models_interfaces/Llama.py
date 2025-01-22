@@ -1,7 +1,7 @@
 import ollama
 
 class LlamaVisionQuery:
-    def __init__(self, images: list[str], history: list[dict], model_name: str = "llama3.2-vision"):
+    def __init__(self, images: list[str], history: list[dict] = [], model_name: str = "llama3.2-vision"):
         self.images = images
         self.model_name = model_name
         self.messages = history
@@ -27,7 +27,7 @@ class LlamaVisionQuery:
         return response.message
 
 class LlamaTextQuery:
-    def __init__(self, history: list[dict], model_name: str = "llama3.2"):
+    def __init__(self, history: list[dict] = [], model_name: str = "llama3.2"):
         self.model_name = model_name
         self.messages = history
 
