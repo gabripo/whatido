@@ -31,14 +31,8 @@ class DatabaseEmails(Database):
         for query in queries:
             for n in range(num_emails_to_gen):
                 tasks.append(self._llama_api_call_limited(query, n))
-    #     tasks = [self._generate_emails_from_query(query, num_emails_to_gen) for query in queries]
         generated_emails = await asyncio.gather(*tasks)
         return generated_emails
-
-    # async def _generate_emails_from_query(self, query: str, num_emails_to_gen: int = DEFAULT_NUM_EMAILS_TO_GEN):
-    #     tasks = [self._llama_api_call_limited(query, n) for n in range(num_emails_to_gen)]
-    #     generated_emails = await asyncio.gather(*tasks)
-    #     return generated_emails
 
     async def _llama_api_call_limited(self, query: str, call_number: int = 0):
         async with self.semaphore:
