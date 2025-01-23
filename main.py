@@ -3,7 +3,6 @@ from src.chat_handler.Query import QueryHistory, QueryCommander, QueryHandler
 from src.screenshots_manager.Screenshot import ScreenshotManager
 from src.database_manager.Emails import DatabaseEmails
 
-model_name = 'llama3.2-vision'
 ANALYZE_SCREEN = True
 ANALYZE_ASSETS = True
 TEST_TEXT_QUERY = True
