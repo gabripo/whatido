@@ -41,9 +41,9 @@ if __name__ == "__main__":
 
     de = DatabaseEmails('test')
     queries = [
-        'generate an aggressive e-mail, max 100 characters',
-        'generate an e-mail explaining low-pass filtering, max 300 characters',
-        'generate an e-mail explaining the usage of \'epoustoflant\' in French with an example, max 300 characters',
-        'genera una e-mail scusandoti di un evento grave accaduto in azienda, max 200 caratteri e in Italiano'
+        'write an aggressive e-mail, max 100 characters',
+        'write an e-mail explaining low-pass filtering, max 300 characters',
+        'write an e-mail explaining the usage of \'epoustoflant\' in French with an example, max 300 characters',
+        'scrivi una e-mail scusandoti di un evento grave accaduto in azienda, max 200 caratteri e in Italiano'
         ]
     de.build(queries, 2)
