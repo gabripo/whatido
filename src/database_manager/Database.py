@@ -5,7 +5,7 @@ from abc import abstractmethod
 class Database:
     _instance = None
 
-    def __new__(cls, name: str = "db", path: str="database", *args, **kwargs):
+    def __new__(cls, name: str = "db", path: str = None, *args, **kwargs):
         if cls._instance is None:
             cls._instance = super(Database, cls).__new__(cls)
             cls._instance.database_name = cls.__name__
@@ -17,6 +17,8 @@ class Database:
        
     @abstractmethod
     def create_folder(self) -> None:
+        if self.database_path is None:
+            self.database_path = "database"
         self.database_path = os.path.join(os.getcwd(), self.database_path)
         if not os.path.exists(self.database_path):
             os.makedirs(self.database_path)

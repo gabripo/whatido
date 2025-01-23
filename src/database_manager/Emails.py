@@ -7,7 +7,7 @@ DEFAULT_NUM_EMAILS_TO_GEN = 10
 DEFAULT_MAX_CONCURRENT_REQUESTS = 10
 
 class DatabaseEmails(Database):
-    def __init__(self, name: str, path: str):
+    def __init__(self, name: str, path: str = "database"):
         self.database_name = name
         self.database_path = path
         self.num_emails = 0
