@@ -24,8 +24,6 @@
 	- Clustering skills: writing code, Excel usage, English fluency.
 	- Recognize people's actual behaviour and personality traits within a meeting / e-mail / calls (sentiment analysis?).
 ### DEMO IDEA
-- Where to get the data for training? We record ourselves, pretending to be "best performers", then fine-tune llama vision on the recordings.
-### IN THE NEXT EPISODES...
 - Fine-tune of llama vision:
 	- Training data: screenshot with an e-mail, metrics about the e-mail (the best technical e-mail 10/10, best arrogant e-mail 10/10, worst clear e-mail 1/10), use dataset augmentation (blur, crop, rotate ...) to enlarge the dataset, use LLM to generate e-mails?
 	- Input: average employee writes an e-mail.
