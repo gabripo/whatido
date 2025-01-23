@@ -47,3 +47,6 @@ class BoundedUserDict(UserDict):
             print(f"Invalid score name to assign: {key}")
         bounded_value = max(MIN_SCORE, min(MAX_SCORE, value))
         super().__setitem__(key, bounded_value)
+
+    def to_dict(self):
+        return dict(self)
