@@ -39,7 +39,7 @@ if __name__ == "__main__":
         history.print_history()
         history.clear_history()
 
-    de = DatabaseEmails('test')
+    de = DatabaseEmails('gen_emails', 'test')
     queries = [
         'write an aggressive e-mail, max 100 characters',
         'write an e-mail explaining low-pass filtering, max 300 characters',
@@ -47,3 +47,4 @@ if __name__ == "__main__":
         'scrivi una e-mail scusandoti di un evento grave accaduto in azienda, max 200 caratteri e in Italiano'
         ]
     de.build(queries, 2)
+    de.store()

@@ -1,4 +1,3 @@
-import os
 import asyncio
 from .Database import Database
 from ..models_interfaces.Llama import LlamaTextQuery
@@ -8,7 +7,8 @@ DEFAULT_NUM_EMAILS_TO_GEN = 10
 DEFAULT_MAX_CONCURRENT_REQUESTS = 10
 
 class DatabaseEmails(Database):
-    def __init__(self, path: str):
+    def __init__(self, name: str, path: str):
+        self.database_name = name
         self.database_path = path
         self.num_emails = 0
         self.generation_options = {
@@ -21,8 +21,7 @@ class DatabaseEmails(Database):
         return super().create_folder()
 
     def build(self, queries: list[str] = DEFAULT_QUERIES, num_emails_to_gen: int = DEFAULT_NUM_EMAILS_TO_GEN):
-        generated_emails = asyncio.run(self._generate_emails(queries, num_emails_to_gen))
-        print(generated_emails[0]) # debug
+        self.generated_data = asyncio.run(self._generate_emails(queries, num_emails_to_gen))
 
     async def _generate_emails(self, queries: list[str] = DEFAULT_QUERIES, num_emails_to_gen: int = DEFAULT_NUM_EMAILS_TO_GEN):
         tasks = [self._generate_n_emails(query, num_emails_to_gen) for query in queries]
