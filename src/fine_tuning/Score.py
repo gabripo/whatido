@@ -18,7 +18,7 @@ class Score:
             self._score_names = score_values_in
 
         self._score_values = [random.uniform(MAX_SCORE, MIN_SCORE) for _ in range(len(self._score_names))]
-        if len(score_values_in) < len(self._score_names):
+        if len(score_values_in) <= len(self._score_names):
             for i, value in enumerate(score_values_in):
                 self._score_values[i] = self._bounded_value(value)
 
