@@ -47,3 +47,4 @@ if __name__ == "__main__":
         ]
     de.build(queries, 2)
     de.store()
+    de.print()

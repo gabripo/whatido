@@ -53,10 +53,13 @@ class Database:
         filename_full_path = os.path.join(self.database_path, filename + '.json')
         with open(filename_full_path, 'w') as json_file:
             json.dump(data, json_file, indent=indent_size)
+        
+        if os.path.exists(filename_full_path):
+            self.files.append(filename_full_path)
 
 
     @abstractmethod
     def print(self):
-        print(f"Files in the database {self.__class__.__name__}:\n")
+        print(f"Files in the database {self.database_name}:\n")
         for filename in self.files:
             print(f"{filename}")
