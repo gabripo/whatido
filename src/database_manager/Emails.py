@@ -32,7 +32,7 @@ class DatabaseEmails(Database):
         query_text = query['query']
         scores_dict = query['scores'].scores
         emails = [await self._llama_text_call_limited(query_text, call_number) for call_number in range(num_emails_to_gen)]
-        return {'query': query_text, 'responses': emails, 'score': scores_dict}
+        return {'emails': emails, 'score': scores_dict}
 
     async def _llama_text_call_limited(self, query_text: str, call_number: int = 0):
         async with self.semaphore:
