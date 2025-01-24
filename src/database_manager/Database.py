@@ -16,6 +16,7 @@ class Database:
                 'indent': 4,
                 'default': lambda obj: obj.__json__()
             }
+            cls._instance.append_to_json = False
             cls._instance.generated_data = {}
             cls._instance.files = []
         return cls._instance
@@ -56,11 +57,22 @@ class Database:
 
     async def _dump_json_data(self, filename: str, data):
         filename_full_path = os.path.join(self.database_path, filename + '.json')
-        with open(filename_full_path, 'w') as json_file:
+        with open(filename_full_path, 'r+') as json_file:
+            if self.append_to_json and not self._is_json_file_empty(filename_full_path):
+                existing_data = json.load(json_file)
+                data.extend(existing_data)  # new data on the top
+                json_file.seek(0)
             json.dump(data, json_file, **self.json_dump_settings)
         
         if os.path.exists(filename_full_path):
             self.files.append(filename_full_path)
+
+    def _is_json_file_empty(self, file_full_path: str) -> bool:
+        if not os.path.exists(file_full_path):
+            return True
+        with open(file_full_path, 'r') as file:
+            file.seek(0, 2)
+            return file.tell() == 0
 
 
     @abstractmethod

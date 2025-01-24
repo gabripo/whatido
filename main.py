@@ -47,6 +47,7 @@ if __name__ == "__main__":
         {'query': 'scrivi una e-mail scusandoti di un evento grave accaduto in azienda, max 200 caratteri e in Italiano', 'scores': Score([0, 9, 0, 0, 10])},
         {'query': 'schreib eine aggressive E-Mail, max 200 Buchstaben und auf Deutsch', 'scores': Score([0, 10, 0, 10, 0])},
         ]
-    de.build(queries, 2)
+    de.append_to_json = True
+    de.build(queries, 10)
     de.store()
     de.print()
