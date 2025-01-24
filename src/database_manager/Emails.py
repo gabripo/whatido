@@ -58,6 +58,9 @@ class DatabaseEmails(Database):
     def store(self):
         return super().store()
     
+    def clear(self):
+        return super().clear()
+    
     def print(self):
         return super().print()
     

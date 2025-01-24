@@ -1,4 +1,4 @@
-import os, asyncio, json
+import os, asyncio, json, shutil
 from abc import abstractmethod
 
 # Singleton Pattern
@@ -46,6 +46,17 @@ class Database:
                 io_tasks.append(self._dump_json_data(filename, query_responses))
         
         self._execute_event_loop_gather(io_tasks)
+
+    @abstractmethod
+    def clear(self):
+        for file_path in self.files:
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
     
     def _execute_event_loop_gather(self, tasks: list):
         event_loop = asyncio.new_event_loop()
