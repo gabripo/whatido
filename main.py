@@ -45,6 +45,7 @@ if __name__ == "__main__":
         {'query': 'write an e-mail explaining low-pass filtering, max 300 characters', 'scores': Score([10, 3, 10, 0, 2])},
         {'query': 'write an e-mail explaining the usage of \'epoustoflant\' in French with an example, max 300 characters', 'scores': Score([6, 10, 0, 0, 7])},
         {'query': 'scrivi una e-mail scusandoti di un evento grave accaduto in azienda, max 200 caratteri e in Italiano', 'scores': Score([0, 9, 0, 0, 10])},
+        {'query': 'schreib eine aggressive E-Mail, max 200 Buchstaben und auf Deutsch', 'scores': Score([0, 10, 0, 10, 0])},
         ]
     de.build(queries, 2)
     de.store()
