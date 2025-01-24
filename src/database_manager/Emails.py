@@ -30,7 +30,7 @@ class DatabaseEmails(Database):
 
     async def _generate_n_emails(self, query: dict, num_emails_to_gen: int = 1):
         query_text = query['query']
-        scores_dict = query['scores'].scores.to_dict()
+        scores_dict = query['scores'].scores
         emails = [await self._llama_text_call_limited(query_text, call_number) for call_number in range(num_emails_to_gen)]
         return {'query': query_text, 'responses': emails, 'score': scores_dict}
 

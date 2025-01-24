@@ -52,7 +52,7 @@ class Database:
     async def _dump_json_data(self, filename: str, data, indent_size: int = 4):
         filename_full_path = os.path.join(self.database_path, filename + '.json')
         with open(filename_full_path, 'w') as json_file:
-            json.dump(data, json_file, indent=indent_size)
+            json.dump(data, json_file, indent=indent_size, default=lambda obj: obj.__json__())
         
         if os.path.exists(filename_full_path):
             self.files.append(filename_full_path)
