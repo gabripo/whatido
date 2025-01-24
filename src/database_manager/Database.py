@@ -68,8 +68,9 @@ class Database:
 
     async def _dump_json_data(self, filename: str, data):
         filename_full_path = os.path.join(self.database_path, filename + '.json')
-        with open(filename_full_path, 'r+') as json_file:
-            if self.append_to_json and not self._is_json_file_empty(filename_full_path):
+        file_access_type = 'r+' if os.path.exists(filename_full_path) else 'w'
+        with open(filename_full_path, file_access_type) as json_file:
+            if file_access_type != 'w' and self.append_to_json and not self._is_json_file_empty(filename_full_path):
                 existing_data = json.load(json_file)
                 data.extend(existing_data)  # new data on the top
                 json_file.seek(0)
