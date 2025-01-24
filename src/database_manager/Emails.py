@@ -3,7 +3,7 @@ from .Database import Database
 from ..models_interfaces.Llama import LlamaTextQuery
 
 DEFAULT_QUERIES = ['generate an e-mail']
-DEFAULT_NUM_EMAILS_TO_GEN = 10
+DEFAULT_NUM_EMAILS_TO_GEN_PER_QUERY = 10
 DEFAULT_MAX_CONCURRENT_REQUESTS = 10
 
 class DatabaseEmails(Database):
@@ -16,22 +16,26 @@ class DatabaseEmails(Database):
             'consider_history': False
         }
         self.semaphore = asyncio.Semaphore(DEFAULT_MAX_CONCURRENT_REQUESTS)
+        self.queries = DEFAULT_QUERIES
+        self.num_emails_to_gen_per_query = DEFAULT_NUM_EMAILS_TO_GEN_PER_QUERY
 
     def create_folder(self) -> None:
         return super().create_folder()
 
-    def build(self, queries: list[dict] = DEFAULT_QUERIES, num_emails_to_gen: int = DEFAULT_NUM_EMAILS_TO_GEN):
-        self.generated_data = asyncio.run(self._generate_emails(queries, num_emails_to_gen))
+    def build(self, queries: list[dict] = DEFAULT_QUERIES, num_emails_to_gen: int = DEFAULT_NUM_EMAILS_TO_GEN_PER_QUERY):
+        self.queries = queries
+        self.num_emails_to_gen_per_query = num_emails_to_gen
+        self.generated_data = asyncio.run(self._generate_emails())
 
-    async def _generate_emails(self, queries: list[dict] = DEFAULT_QUERIES, num_emails_to_gen: int = DEFAULT_NUM_EMAILS_TO_GEN):
-        tasks = [self._generate_n_emails(query, num_emails_to_gen) for query in queries]
+    async def _generate_emails(self):
+        tasks = [self._generate_n_emails(query) for query in self.queries]
         generated_emails = await asyncio.gather(*tasks)
         return generated_emails
 
-    async def _generate_n_emails(self, query: dict, num_emails_to_gen: int = 1):
+    async def _generate_n_emails(self, query: dict):
         query_text = query['query']
         scores_dict = query['scores'].scores
-        emails = [await self._llama_text_call_limited(query_text, call_number) for call_number in range(num_emails_to_gen)]
+        emails = [await self._llama_text_call_limited(query_text, call_number) for call_number in range(self.num_emails_to_gen_per_query)]
         return {'emails': emails, 'score': scores_dict}
 
     async def _llama_text_call_limited(self, query_text: str, call_number: int = 0):
