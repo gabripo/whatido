@@ -11,6 +11,11 @@ class Database:
             cls._instance.database_name = cls.__name__
             cls._instance.database_path = path
             cls._instance.create_folder()
+            cls._instance.store_single_queries = False
+            cls._instance.json_dump_settings = {
+                'indent': 4,
+                'default': lambda obj: obj.__json__()
+            }
             cls._instance.generated_data = {}
             cls._instance.files = []
         return cls._instance
@@ -31,9 +36,9 @@ class Database:
         pass
 
     @abstractmethod
-    def store(self, store_single_queries: bool = False):
+    def store(self):
         io_tasks = [self._dump_json_data(self.database_name, self.generated_data)]
-        if store_single_queries:
+        if self.store_single_queries:
             for query_responses in self.generated_data:
                 query = query_responses['query']
                 filename = query[:10] + f"_{hash(query)}"
@@ -49,10 +54,10 @@ class Database:
         finally:
             event_loop.close()
 
-    async def _dump_json_data(self, filename: str, data, indent_size: int = 4):
+    async def _dump_json_data(self, filename: str, data):
         filename_full_path = os.path.join(self.database_path, filename + '.json')
         with open(filename_full_path, 'w') as json_file:
-            json.dump(data, json_file, indent=indent_size, default=lambda obj: obj.__json__())
+            json.dump(data, json_file, **self.json_dump_settings)
         
         if os.path.exists(filename_full_path):
             self.files.append(filename_full_path)
