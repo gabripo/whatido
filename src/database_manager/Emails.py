@@ -36,7 +36,11 @@ class DatabaseEmails(Database):
         query_text = query['query']
         scores_dict = query['scores'].scores
         emails = [await self._llama_text_call_limited(query_text, call_number) for call_number in range(self.num_emails_to_gen_per_query)]
-        return {'emails': emails, 'score': scores_dict}
+        emails_dict = {'emails': emails, 'score': scores_dict}
+        if self.store_while_generating:
+            async with self.file_lock:
+                self.store_single_entry(emails_dict)
+        return emails_dict
 
     async def _llama_text_call_limited(self, query_text: str, call_number: int = 0):
         async with self.semaphore:
@@ -57,6 +61,9 @@ class DatabaseEmails(Database):
     
     def store(self):
         return super().store()
+    
+    def store_single_entry(self, entry):
+        return super().store_single_entry(entry)
     
     def clear(self):
         return super().clear()

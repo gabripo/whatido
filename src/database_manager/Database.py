@@ -18,7 +18,9 @@ class Database:
             }
             cls._instance.append_to_json = False
             cls._instance.generated_data = {}
-            cls._instance.files = []
+            cls._instance.store_while_generating = True
+            cls._instance.file_lock = asyncio.Lock()
+            cls._instance.files = set()
         return cls._instance
        
     @abstractmethod
@@ -48,6 +50,11 @@ class Database:
         self._execute_event_loop_gather(io_tasks)
 
     @abstractmethod
+    def store_single_entry(self, entry: dict):
+        filename_full_path = os.path.join(self.database_path, self.database_name + '.json')
+        self._dump_json_data_single(filename_full_path, [entry])
+
+    @abstractmethod
     def clear(self):
         for file_path in self.files:
             try:
@@ -66,8 +73,11 @@ class Database:
         finally:
             event_loop.close()
 
-    async def _dump_json_data(self, filename: str, data):
+    async def _dump_json_data(self, filename: str, data: list[dict]):
         filename_full_path = os.path.join(self.database_path, filename + '.json')
+        self._dump_json_data_single(filename_full_path, data)
+
+    def _dump_json_data_single(self, filename_full_path: str, data: list[dict]):
         file_access_type = 'r+' if os.path.exists(filename_full_path) else 'w'
         with open(filename_full_path, file_access_type) as json_file:
             if file_access_type != 'w' and self.append_to_json and not self._is_json_file_empty(filename_full_path):
@@ -75,9 +85,9 @@ class Database:
                 data.extend(existing_data)  # new data on the top
                 json_file.seek(0)
             json.dump(data, json_file, **self.json_dump_settings)
-        
-        if os.path.exists(filename_full_path):
-            self.files.append(filename_full_path)
+
+        if os.path.exists(filename_full_path) and filename_full_path not in self.files:
+            self.files.add(filename_full_path)
 
     def _is_json_file_empty(self, file_full_path: str) -> bool:
         if not os.path.exists(file_full_path):
