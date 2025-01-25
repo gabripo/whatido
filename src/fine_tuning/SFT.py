@@ -1,5 +1,5 @@
 from sklearn.model_selection import train_test_split
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, AdamW
 import torch
 from torch.utils.data import DataLoader
 from .FineTraining import FineTraining
@@ -30,6 +30,10 @@ class SupervisedFineTraining(FineTraining):
         self.num_labels = 0
         self.model = None
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.optimizer_options = {
+            'lr': 5e-5
+        }
+        self.optimizer = None
 
     def load_dataset(self, dataset: TrainingDataset):
         self.train_data = dict(zip(self.train_data.keys(), train_test_split(dataset, **self.split_options)))
@@ -49,3 +53,4 @@ class SupervisedFineTraining(FineTraining):
             num_labels=self.num_labels,
         )
         self.model.to(self.device)
+        self.optimizer = AdamW(self.model.parameters(), **self.optimizer_options)
