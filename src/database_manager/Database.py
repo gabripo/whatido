@@ -80,7 +80,7 @@ class Database:
     def _dump_json_data_single(self, filename_full_path: str, data: list):
         file_access_type = 'r+' if self._is_json_readable(filename_full_path) else 'w'
         with open(filename_full_path, file_access_type) as json_file:
-            if file_access_type != 'w' and self.append_to_json and not self._is_json_file_empty(filename_full_path):
+            if file_access_type != 'w' and not self._is_json_file_empty(filename_full_path):
                 existing_data = json.load(json_file)
                 data.extend(existing_data)  # new data on the top
                 json_file.seek(0)
