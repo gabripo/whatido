@@ -1,10 +1,16 @@
 import asyncio
 from .Database import Database
 from ..models_interfaces.Llama import LlamaTextQuery
+from ..fine_tuning.Score import Score
 
 DEFAULT_QUERIES = ['generate an e-mail']
 DEFAULT_NUM_EMAILS_TO_GEN_PER_QUERY = 10
 DEFAULT_MAX_CONCURRENT_REQUESTS = 10
+
+class QueryScorePair():
+    def __init__(self, query_text: str, scores: list):
+        self.query_text = query_text
+        self.scores = Score(scores)
 
 class DatabaseEmails(Database):
     def __init__(self, name: str, path: str = "database"):
@@ -22,7 +28,7 @@ class DatabaseEmails(Database):
     def create_folder(self) -> None:
         return super().create_folder()
 
-    def build(self, queries: list[dict] = DEFAULT_QUERIES, num_emails_to_gen: int = DEFAULT_NUM_EMAILS_TO_GEN_PER_QUERY):
+    def build(self, queries: list[QueryScorePair] = DEFAULT_QUERIES, num_emails_to_gen: int = DEFAULT_NUM_EMAILS_TO_GEN_PER_QUERY):
         self.queries = queries
         self.num_emails_to_gen_per_query = num_emails_to_gen
         self.generated_data = asyncio.run(self._generate_emails())
@@ -32,9 +38,9 @@ class DatabaseEmails(Database):
         generated_emails = await asyncio.gather(*tasks)
         return generated_emails
 
-    async def _generate_n_emails(self, query: dict):
-        query_text = query['query']
-        scores_dict = query['scores'].scores
+    async def _generate_n_emails(self, query: QueryScorePair):
+        query_text = query.query_text
+        scores_dict = query.scores.scores
         emails = [{'email': await self._llama_text_call_limited(query_text, call_number), 'score': scores_dict} for call_number in range(self.num_emails_to_gen_per_query)]
         if self.store_while_generating:
             async with self.file_lock:

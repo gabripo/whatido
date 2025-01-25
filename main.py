@@ -1,8 +1,7 @@
 import os
 from src.chat_handler.Query import QueryHistory, QueryCommander, QueryHandler
 from src.screenshots_manager.Screenshot import ScreenshotManager
-from src.database_manager.Emails import DatabaseEmails
-from src.fine_tuning.Score import Score
+from src.database_manager.Emails import DatabaseEmails, QueryScorePair
 
 ANALYZE_SCREEN = True
 ANALYZE_ASSETS = True
@@ -41,11 +40,11 @@ if __name__ == "__main__":
 
     de = DatabaseEmails('gen_emails')
     queries = [
-        {'query': 'write an aggressive e-mail, max 100 characters', 'scores': Score([10, 10, 0, 10, 0])},
-        {'query': 'write an e-mail explaining low-pass filtering, max 300 characters', 'scores': Score([10, 3, 10, 0, 2])},
-        {'query': 'write an e-mail explaining the usage of \'epoustoflant\' in French with an example, max 300 characters', 'scores': Score([6, 10, 0, 0, 7])},
-        {'query': 'scrivi una e-mail scusandoti di un evento grave accaduto in azienda, max 200 caratteri e in Italiano', 'scores': Score([0, 9, 0, 0, 10])},
-        {'query': 'schreib eine aggressive E-Mail, max 200 Buchstaben und auf Deutsch', 'scores': Score([0, 10, 0, 10, 0])},
+        QueryScorePair('write an aggressive e-mail, max 100 characters', [10, 10, 0, 10, 0]),
+        QueryScorePair('write an e-mail explaining low-pass filtering, max 300 characters', [10, 3, 10, 0, 2]),
+        QueryScorePair('write an e-mail explaining the usage of QueryScorePair(lant\' in French with an example, max 300 characters', [6, 10, 0, 0, 7]),
+        QueryScorePair('scrivi una e-mail scusandoti di un evento grave QueryScorePair(n azienda, max 200 caratteri e in Italiano', [0, 9, 0, 0, 10]),
+        QueryScorePair('schreib eine aggressive E-Mail, max 200 Buchstaben und auf Deutsch',[0, 10, 0, 10, 0]),
         ]
     de.build(queries, 10)
     de.print()
