@@ -2,6 +2,8 @@ import os
 from src.chat_handler.Query import QueryHistory, QueryCommander, QueryHandler
 from src.screenshots_manager.Screenshot import ScreenshotManager
 from src.database_manager.Emails import DatabaseEmails, QueryScorePair
+from src.fine_tuning.TrainingDataset import TrainingDataset
+from src.fine_tuning.SFT import SupervisedFineTraining
 
 ANALYZE_SCREEN = False
 ANALYZE_ASSETS = False
@@ -50,3 +52,9 @@ if __name__ == "__main__":
             ]
         de.build(queries, 10)
         de.print()
+
+    sft = SupervisedFineTraining()
+    dataset_path = 'database/gen_emails.json'
+    dataset = TrainingDataset(dataset_path, sft.tokenizer)
+    sft.load_dataset(dataset)
+    print(sft.train_data)
