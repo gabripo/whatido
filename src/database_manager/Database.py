@@ -78,7 +78,7 @@ class Database:
             self._dump_json_data_single(filename_full_path, data_single)
 
     def _dump_json_data_single(self, filename_full_path: str, data: list):
-        file_access_type = 'r+' if self._is_json_readable(filename_full_path) else 'w'
+        file_access_type = 'r+' if self.is_json_readable(filename_full_path) else 'w'
         with open(filename_full_path, file_access_type) as json_file:
             if file_access_type != 'w' and not self._is_json_file_empty(filename_full_path):
                 existing_data = json.load(json_file)
@@ -89,7 +89,8 @@ class Database:
         if os.path.exists(filename_full_path) and filename_full_path not in self.files:
             self.files.add(filename_full_path)
 
-    def _is_json_readable(self, filename_full_path: str) -> bool:
+    @classmethod
+    def is_json_readable(self, filename_full_path: str) -> bool:
         if os.path.exists(filename_full_path):
             try:
                 with open(filename_full_path, 'r') as json_file:
@@ -99,7 +100,8 @@ class Database:
                 print(f"File {filename_full_path} is not a valid JSON file!\n")
         return False
 
-    def _is_json_file_empty(self, file_full_path: str) -> bool:
+    @classmethod
+    def is_json_file_empty(self, file_full_path: str) -> bool:
         if not os.path.exists(file_full_path):
             return True
         with open(file_full_path, 'r') as file:

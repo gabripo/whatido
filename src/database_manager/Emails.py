@@ -83,7 +83,7 @@ class DatabaseEmails(Database):
 
     def count_emails(self):
         database_path = os.path.abspath(os.path.join(self.database_path, self.database_name + '.json'))
-        if not self._is_json_file_empty(database_path) and self._is_json_readable(database_path):
+        if not self.is_json_file_empty(database_path) and self.is_json_readable(database_path):
             with open(database_path, 'r') as json_file:
                 data = json.load(json_file)
             return len(data)
