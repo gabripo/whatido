@@ -16,7 +16,7 @@ class Database:
                 'indent': 4,
                 'default': lambda obj: obj.__json__()
             }
-            cls._instance.append_to_json = False
+            cls._instance.append_to_json = True
             cls._instance.generated_data = {}
             cls._instance.store_while_generating = True
             cls._instance.file_lock = asyncio.Lock()
