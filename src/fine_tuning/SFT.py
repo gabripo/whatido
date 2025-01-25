@@ -16,6 +16,10 @@ class SupervisedFineTraining(FineTraining):
             'y_train': [],
             'y_test': [],
         }
+        self.loaders_options = {
+            'batch_size': 8,
+            'shuffle': True,
+        }
         self.loaders = {
             'train': None,
             'test': None,
@@ -27,8 +31,8 @@ class SupervisedFineTraining(FineTraining):
 
     def load_dataset(self, dataset: TrainingDataset):
         self.train_data = dict(zip(self.train_data.keys(), train_test_split(dataset, **self.split_options)))
-        self.loaders["train"] = DataLoader(self.train_data['X_train'])
-        self.loaders["test"] = DataLoader(self.train_data['X_test'])
+        self.loaders["train"] = DataLoader(self.train_data['X_train'], **self.loaders_options)
+        self.loaders["test"] = DataLoader(self.train_data['X_test'], **self.loaders_options)
         self.num_labels = dataset.num_labels
     
     def train(self):
