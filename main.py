@@ -6,6 +6,7 @@ from src.database_manager.Emails import DatabaseEmails, QueryScorePair
 ANALYZE_SCREEN = False
 ANALYZE_ASSETS = False
 TEST_TEXT_QUERY = False
+GENERATE_EMAILS = False
 
 if __name__ == "__main__":
     history = QueryHistory()
@@ -38,13 +39,14 @@ if __name__ == "__main__":
         history.print_history()
         history.clear_history()
 
-    de = DatabaseEmails('gen_emails')
-    queries = [
-        QueryScorePair('write an aggressive e-mail, max 100 characters', [10, 10, 0, 10, 0]),
-        QueryScorePair('write an e-mail explaining low-pass filtering, max 300 characters', [10, 3, 10, 0, 2]),
-        QueryScorePair('write an e-mail explaining the usage of epoustoflant in French with an example, max 300 characters', [6, 10, 0, 0, 7]),
-        QueryScorePair('scrivi una e-mail scusandoti di un evento grave accaduto in azienda, max 200 caratteri e in Italiano', [0, 9, 0, 0, 10]),
-        QueryScorePair('schreib eine aggressive E-Mail, max 200 Buchstaben und auf Deutsch',[0, 10, 0, 10, 0]),
-        ]
-    de.build(queries, 10)
-    de.print()
+    if GENERATE_EMAILS:
+        de = DatabaseEmails('gen_emails')
+        queries = [
+            QueryScorePair('write an aggressive e-mail, max 100 characters', [10, 10, 0, 10, 0]),
+            QueryScorePair('write an e-mail explaining low-pass filtering, max 300 characters', [10, 3, 10, 0, 2]),
+            QueryScorePair('write an e-mail explaining the usage of epoustoflant in French with an example, max 300 characters', [6, 10, 0, 0, 7]),
+            QueryScorePair('scrivi una e-mail scusandoti di un evento grave accaduto in azienda, max 200 caratteri e in Italiano', [0, 9, 0, 0, 10]),
+            QueryScorePair('schreib eine aggressive E-Mail, max 200 Buchstaben und auf Deutsch',[0, 10, 0, 10, 0]),
+            ]
+        de.build(queries, 10)
+        de.print()
