@@ -35,12 +35,12 @@ class DatabaseEmails(Database):
     async def _generate_n_emails(self, query: dict):
         query_text = query['query']
         scores_dict = query['scores'].scores
-        emails = [await self._llama_text_call_limited(query_text, call_number) for call_number in range(self.num_emails_to_gen_per_query)]
-        emails_dict = {'emails': emails, 'score': scores_dict}
+        emails = [{'email': await self._llama_text_call_limited(query_text, call_number), 'score': scores_dict} for call_number in range(self.num_emails_to_gen_per_query)]
         if self.store_while_generating:
             async with self.file_lock:
-                self.store_single_entry(emails_dict)
-        return emails_dict
+                for emails_dict in emails:
+                    self.store_single_entry(emails_dict)
+        return emails
 
     async def _llama_text_call_limited(self, query_text: str, call_number: int = 0):
         async with self.semaphore:

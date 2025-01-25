@@ -73,11 +73,12 @@ class Database:
         finally:
             event_loop.close()
 
-    async def _dump_json_data(self, filename: str, data: list[dict]):
+    async def _dump_json_data(self, filename: str, data: list):
         filename_full_path = os.path.join(self.database_path, filename + '.json')
-        self._dump_json_data_single(filename_full_path, data)
+        for data_single in data:
+            self._dump_json_data_single(filename_full_path, data_single)
 
-    def _dump_json_data_single(self, filename_full_path: str, data: list[dict]):
+    def _dump_json_data_single(self, filename_full_path: str, data: list):
         file_access_type = 'r+' if os.path.exists(filename_full_path) else 'w'
         with open(filename_full_path, file_access_type) as json_file:
             if file_access_type != 'w' and self.append_to_json and not self._is_json_file_empty(filename_full_path):
