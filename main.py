@@ -49,5 +49,4 @@ if __name__ == "__main__":
         ]
     de.append_to_json = True
     de.build(queries, 10)
-    de.store()
     de.print()
