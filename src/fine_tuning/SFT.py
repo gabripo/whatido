@@ -1,5 +1,6 @@
 from sklearn.model_selection import train_test_split
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
+import torch
 from torch.utils.data import DataLoader
 from .FineTraining import FineTraining
 from .TrainingDataset import TrainingDataset
@@ -28,6 +29,7 @@ class SupervisedFineTraining(FineTraining):
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name) if tokenizer is None else None
         self.num_labels = 0
         self.model = None
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     def load_dataset(self, dataset: TrainingDataset):
         self.train_data = dict(zip(self.train_data.keys(), train_test_split(dataset, **self.split_options)))
@@ -46,3 +48,4 @@ class SupervisedFineTraining(FineTraining):
             self.model_name,
             num_labels=self.num_labels,
         )
+        self.model.to(self.device)
