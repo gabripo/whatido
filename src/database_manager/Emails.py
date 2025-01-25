@@ -1,4 +1,4 @@
-import asyncio
+import asyncio, os, json
 from .Database import Database
 from ..models_interfaces.Llama import LlamaTextQuery
 from .Score import Score
@@ -16,7 +16,7 @@ class DatabaseEmails(Database):
     def __init__(self, name: str, path: str = "database"):
         self.database_name = name
         self.database_path = path
-        self.num_emails = 0
+        self.num_emails = self.count_emails()
         self.generation_options = {
             'include_history': False,
             'consider_history': False
@@ -75,7 +75,16 @@ class DatabaseEmails(Database):
         return super().clear()
     
     def print(self):
-        return super().print()
+        super().print()
+        print(f"E-mails in the dataset: {self.num_emails}\n")
     
     def set_max_concurrent_requests(self, max_concurrent_requests: int = DEFAULT_MAX_CONCURRENT_REQUESTS):
         self.semaphore = asyncio.Semaphore(max_concurrent_requests)
+
+    def count_emails(self):
+        database_path = os.path.abspath(os.path.join(self.database_path, self.database_name + '.json'))
+        if not self._is_json_file_empty(database_path) and self._is_json_readable(database_path):
+            with open(database_path, 'r') as json_file:
+                data = json.load(json_file)
+            return len(data)
+        return 0
