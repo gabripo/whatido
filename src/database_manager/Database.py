@@ -92,7 +92,8 @@ class Database:
     def _is_json_readable(self, filename_full_path: str) -> bool:
         if os.path.exists(filename_full_path):
             try:
-                data = json.load(filename_full_path)
+                with open(filename_full_path, 'r') as json_file:
+                    json.load(json_file)
                 return True
             except:
                 print(f"File {filename_full_path} is not a valid JSON file!\n")
