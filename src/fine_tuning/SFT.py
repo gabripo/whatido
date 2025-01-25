@@ -17,6 +17,7 @@ class SupervisedFineTraining(FineTraining):
         }
         self.model_name = "bert-base-uncased" if model_name is None else None
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name) if tokenizer is None else None
+        self.num_labels = 0
 
     def load_dataset(self, dataset: TrainingDataset):
         self.train_data = dict(zip(self.train_data.keys(), train_test_split(dataset, **self.split_options)))

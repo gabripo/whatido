@@ -10,6 +10,7 @@ class TrainingDataset(Dataset):
         self.max_length = max_length
         self.data = None
         self.import_data()
+        self.num_labels = 0
         
     def import_data(self):
         try:
@@ -54,6 +55,10 @@ class TrainingDataset(Dataset):
 
         if "score" in item.keys():
             loaded_item["labels"] = torch.tensor(list(item["score"].values()), dtype=torch.float)
+            num_labels = len(loaded_item["labels"])
+            if num_labels != self.num_labels:
+                print(f"Found {num_labels} labels.\n")
+                self.num_labels = num_labels
 
         return loaded_item
     
