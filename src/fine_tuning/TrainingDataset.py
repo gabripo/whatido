@@ -35,7 +35,7 @@ class TrainingDataset(Dataset):
         try:
             return self._load_email_score(item)
         except:
-            print(f"Impossiblo to load item at index {idx}.\n")
+            print(f"Impossible to load item at index {idx}.\n")
     
     def _load_email_score(self, item: dict):
         loaded_item = self._empty_item()
