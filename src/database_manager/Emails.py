@@ -1,7 +1,7 @@
 import asyncio
 from .Database import Database
 from ..models_interfaces.Llama import LlamaTextQuery
-from ..fine_tuning.Score import Score
+from .Score import Score
 
 DEFAULT_QUERIES = ['generate an e-mail']
 DEFAULT_NUM_EMAILS_TO_GEN_PER_QUERY = 10
