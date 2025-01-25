@@ -4,7 +4,7 @@ from torch.utils.data import Dataset
 TOKENIZER_MAX_LENGTH = 128
 
 class TrainingDataset(Dataset):
-    def __init__(self, database_path: str, tokenizer, max_length: int = TOKENIZER_MAX_LENGTH):
+    def __init__(self, database_path: str, tokenizer = None, max_length: int = TOKENIZER_MAX_LENGTH):
         self.database_path = database_path
         self.tokenizer = tokenizer
         self.max_length = max_length
@@ -40,7 +40,7 @@ class TrainingDataset(Dataset):
     def _load_email_score(self, item: dict):
         loaded_item = self._empty_item()
 
-        if "email" in item.keys():
+        if "email" in item.keys() and not self.tokenizer is None:
             text = item["email"]
             encoding = self.tokenizer(
                 text,
