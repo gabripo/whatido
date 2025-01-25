@@ -16,7 +16,6 @@ class Database:
                 'indent': 4,
                 'default': lambda obj: obj.__json__()
             }
-            cls._instance.append_to_json = True
             cls._instance.generated_data = {}
             cls._instance.store_while_generating = True
             cls._instance.file_lock = asyncio.Lock()
@@ -79,7 +78,7 @@ class Database:
             self._dump_json_data_single(filename_full_path, data_single)
 
     def _dump_json_data_single(self, filename_full_path: str, data: list):
-        file_access_type = 'r+' if os.path.exists(filename_full_path) else 'w'
+        file_access_type = 'r+' if self._is_json_readable(filename_full_path) else 'w'
         with open(filename_full_path, file_access_type) as json_file:
             if file_access_type != 'w' and self.append_to_json and not self._is_json_file_empty(filename_full_path):
                 existing_data = json.load(json_file)
@@ -89,6 +88,15 @@ class Database:
 
         if os.path.exists(filename_full_path) and filename_full_path not in self.files:
             self.files.add(filename_full_path)
+
+    def _is_json_readable(self, filename_full_path: str) -> bool:
+        if os.path.exists(filename_full_path):
+            try:
+                data = json.load(filename_full_path)
+                return True
+            except:
+                print(f"File {filename_full_path} is not a valid JSON file!\n")
+        return False
 
     def _is_json_file_empty(self, file_full_path: str) -> bool:
         if not os.path.exists(file_full_path):
