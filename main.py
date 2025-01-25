@@ -3,9 +3,9 @@ from src.chat_handler.Query import QueryHistory, QueryCommander, QueryHandler
 from src.screenshots_manager.Screenshot import ScreenshotManager
 from src.database_manager.Emails import DatabaseEmails, QueryScorePair
 
-ANALYZE_SCREEN = True
-ANALYZE_ASSETS = True
-TEST_TEXT_QUERY = True
+ANALYZE_SCREEN = False
+ANALYZE_ASSETS = False
+TEST_TEXT_QUERY = False
 
 if __name__ == "__main__":
     history = QueryHistory()
