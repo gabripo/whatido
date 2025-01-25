@@ -1,5 +1,6 @@
 from sklearn.model_selection import train_test_split
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from torch.utils.data import DataLoader
 from .FineTraining import FineTraining
 from .TrainingDataset import TrainingDataset
 
@@ -15,6 +16,10 @@ class SupervisedFineTraining(FineTraining):
             'y_train': [],
             'y_test': [],
         }
+        self.loaders = {
+            'train': None,
+            'test': None,
+        }
         self.model_name = "bert-base-uncased" if model_name is None else None
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name) if tokenizer is None else None
         self.num_labels = 0
@@ -22,6 +27,8 @@ class SupervisedFineTraining(FineTraining):
 
     def load_dataset(self, dataset: TrainingDataset):
         self.train_data = dict(zip(self.train_data.keys(), train_test_split(dataset, **self.split_options)))
+        self.loaders["train"] = DataLoader(self.train_data['X_train'])
+        self.loaders["test"] = DataLoader(self.train_data['X_test'])
         self.num_labels = dataset.num_labels
     
     def train(self):
