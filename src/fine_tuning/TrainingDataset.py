@@ -32,11 +32,10 @@ class TrainingDataset(Dataset):
 
     def __getitem__(self, idx):
         item = self.data[idx]
-        # try:
-            # return self._load_email_score(item)
-        # except:
-            # print(f"Impossiblo to load item at index {idx}.\n")
-        return self._load_email_score(item)
+        try:
+            return self._load_email_score(item)
+        except:
+            print(f"Impossiblo to load item at index {idx}.\n")
     
     def _load_email_score(self, item: dict):
         loaded_item = self._empty_item()
