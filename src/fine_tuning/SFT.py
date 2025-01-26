@@ -112,14 +112,14 @@ class SupervisedFineTraining(FineTraining):
         self.set_optimizer()
         for epoch in range(num_epochs):
             self.loss['train'] = self._train(self.loaders["train"])
-            self.loss['test'] = self._train(self.loaders["test"])
+            self.loss['test'] = self._validate(self.loaders["test"])
             print(f"Epoch {epoch + 1} : Train loss {self.loss['train']:.4f} | Test loss {self.loss['test']:.4f}")
-        print(f"T raining for {self.__class__.__name__} concluded!")
+        print(f"Training for {self.__class__.__name__} concluded!")
 
     def _train(self, dataloader: DataLoader = None) -> float:
         if dataloader is None:
             print(f"Invalid dataloader specified for the training. No model training in {self.__class__.__init__} will be performed.\n")
-            return
+            return 0
         if not self._can_train():
             print(f"Impossible to train with {self.__class__.__name__}.\n")
             return 0
@@ -171,8 +171,28 @@ class SupervisedFineTraining(FineTraining):
                 supported_names[name] = True
         
         return all(value is True for value in supported_names.values())
-        
-        
     
+    def _validate(self, dataloader: DataLoader = None) -> float:
+        if dataloader is None:
+            print(f"Invalid dataloader specified for the validation. No model validation in {self.__class__.__init__} will be performed.\n")
+            return 0
+
+        self.model.eval()
+        total_loss = 0
+        with torch.no_grad():
+            for batch in dataloader:
+                if not self._is_batch_valid(batch):
+                    print("Invalid batch, skipping the loop this time...")
+                    continue
+                input_ids = batch["input_ids"].to(self.device)
+                attention_mask = batch["attention_mask"].to(self.device)
+                labels = batch["labels"].to(self.device)
+
+                outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+                loss = outputs.loss
+
+                total_loss += loss.item()
+        return total_loss / len(dataloader)
+        
     def validate(self):
         return super().validate()
