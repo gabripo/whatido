@@ -5,8 +5,10 @@ from torch.utils.data import DataLoader
 from .FineTraining import FineTraining
 from .TrainingDataset import TrainingDataset
 
+DEFAULT_MODEL_NAME = "bert-base-uncased"
+
 class SupervisedFineTraining(FineTraining):
-    def __init__(self, model_name: str = None, tokenizer = None, split_size: float = 0.2, random_state: int = 1):
+    def __init__(self, model_name: str = DEFAULT_MODEL_NAME, tokenizer = None, split_size: float = 0.2, random_state: int = 1):
         self.split_options = {
             'test_size': split_size,
             'random_state': random_state
@@ -25,7 +27,8 @@ class SupervisedFineTraining(FineTraining):
             'train': None,
             'test': None,
         }
-        self.model_name = "bert-base-uncased" if model_name is None else None
+        self.model_name = None
+        self.set_model_name(model_name)
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name) if tokenizer is None else None
         self.num_labels = 0
         self.model = None
@@ -54,6 +57,13 @@ class SupervisedFineTraining(FineTraining):
         )
         self.model.to(self.device)
         
+    def set_model_name(self, model_name: str = DEFAULT_MODEL_NAME):
+        if not model_name is None:
+            self.model_name = model_name
+            print(f"Model {model_name} chosen for {self.__class__.__name__}\n")
+        else:
+            print(f"No model selected for {self.__class__.__name__}\n")
+    
     def set_optimizer(self, optimizer_name: str = 'adamw'):    
         supported_optimizers = {
             'adamw': AdamW(self.model.parameters(), **self.optimizer_options),
