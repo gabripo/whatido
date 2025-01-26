@@ -114,6 +114,7 @@ class SupervisedFineTraining(FineTraining):
         print(f"Start training for {self.__class__.__name__} ...")
         self.build_model()
         self.set_optimizer()
+        self._reset_loss()
         for epoch in range(num_epochs):
             print(f"Epoch {epoch + 1} : Training started")
             self.loss['train'].append(self._train(self.loaders["train"]))
@@ -121,6 +122,10 @@ class SupervisedFineTraining(FineTraining):
             print(f"Epoch {epoch + 1} : Train loss {self.loss['train'][-1]:.4f} | Test loss {self.loss['test'][-1]:.4f}")
         print(f"Training for {self.__class__.__name__} concluded!")
         self.has_trained = True
+
+    def _reset_loss(self):
+        self.loss['train'] = []
+        self.loss['test'] = []
 
     def _train(self, dataloader: DataLoader = None) -> float:
         if dataloader is None:
