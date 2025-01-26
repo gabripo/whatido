@@ -57,5 +57,6 @@ if __name__ == "__main__":
     dataset_path = 'database/gen_emails.json'
     dataset = TrainingDataset(dataset_path, sft.tokenizer)
     sft.load_dataset(dataset)
+    sft.set_tokenizer()
     sft.build_model()
     sft.set_optimizer()
