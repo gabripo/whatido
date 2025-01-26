@@ -4,11 +4,14 @@ import torch, os
 from torch.utils.data import DataLoader
 from .FineTraining import FineTraining
 from .TrainingDataset import TrainingDataset, TOKENIZER_MAX_LENGTH
+from ..database_manager.Score import MAX_SCORE, MIN_SCORE
 
 DEFAULT_MODEL_NAME = "bert-base-uncased"
 DEFAULT_TOKENIZER_NAME = "auto-tokenizer"
 DEFAULT_OPTIMIZER_NAME = "adamw"
 DEFAULT_NUM_EPOCHS = 1
+MAX_SCORE_NORMALIZED = 1
+MIN_SCORE_NORMALIZED = 0
 
 class SupervisedFineTraining(FineTraining):
     def __init__(self, model_name: str = DEFAULT_MODEL_NAME, tokenizer_name: str = DEFAULT_TOKENIZER_NAME, optimizer_name: str = DEFAULT_OPTIMIZER_NAME, split_size: float = 0.2, random_state: int = 1):
@@ -146,7 +149,7 @@ class SupervisedFineTraining(FineTraining):
                 continue
             input_ids = batch["input_ids"].to(self.device)
             attention_mask = batch["attention_mask"].to(self.device)
-            labels = batch["labels"].to(self.device)
+            labels = self._normalize(batch["labels"]).to(self.device)
 
             outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
             logits = outputs.logits
@@ -172,7 +175,7 @@ class SupervisedFineTraining(FineTraining):
                     continue
                 input_ids = batch["input_ids"].to(self.device)
                 attention_mask = batch["attention_mask"].to(self.device)
-                labels = batch["labels"].to(self.device)
+                labels = self._normalize(batch["labels"]).to(self.device)
 
                 outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
                 logits = outputs.logits
@@ -207,6 +210,31 @@ class SupervisedFineTraining(FineTraining):
                 supported_names[name] = True
         
         return all(value is True for value in supported_names.values())
+    
+    def _normalize(self, tensor: torch.Tensor, max_val: float = float(MAX_SCORE_NORMALIZED), min_val: float = float(MIN_SCORE_NORMALIZED)) -> torch.Tensor:
+        if tensor.numel() == 0:
+            return tensor
+        
+        curr_max = tensor.max(dim=1, keepdim=True).values
+        curr_min = tensor.min(dim=1, keepdim=True).values
+        mask = (curr_min == curr_max)
+        curr_min[mask] = MIN_SCORE_NORMALIZED
+        curr_max[mask] = MAX_SCORE_NORMALIZED
+        
+        tensor_normalized = min_val + (tensor - curr_min) * (max_val - min_val) / (curr_max - curr_min)
+        return tensor_normalized
+    
+    def _denormalize(self, array_normalized: list[float], max_val: float = float(MAX_SCORE), min_val: float = float(MIN_SCORE)) -> torch.Tensor:
+        if len(array_normalized) == 0:
+            return array_normalized
+        
+        curr_max = max(array_normalized)
+        curr_min = min(array_normalized)
+        if curr_min == curr_max:
+            return array_normalized
+        
+        array = min_val + (array_normalized - curr_min) * (max_val - min_val) / (curr_max - curr_min)
+        return array
         
     def infer(self, input: str = None) -> list:
         if input is None or type(input) != str:
@@ -229,7 +257,7 @@ class SupervisedFineTraining(FineTraining):
         self.tuned_model.eval()
         with torch.no_grad():
             outputs = self.tuned_model(**inputs)
-            scores = outputs.logits.cpu().numpy().flatten()
+            scores = self._denormalize(outputs.logits.cpu().numpy().flatten())
         return scores
     
     def save(self, tuned_model_name: str = None):
