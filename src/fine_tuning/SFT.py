@@ -250,3 +250,13 @@ class SupervisedFineTraining(FineTraining):
                 self.has_trained = True
             except:
                 print(f"Impossible to load tuned model with name {tuned_model_name}")
+
+    def print_training_characteristics(self):
+        print(f"Model: {self.model_name}")
+        print(f"Tokenizer: {self.tokenizer_name}")
+        print(f"Optimizer: {self.optimizer_name}")
+        if self.has_trained:
+            print(f"Loss (train): {self.loss['train']}")
+            print(f"Loss (test): {self.loss['test']}")
+            print(f"Tuned model: {self.tuned_model_name}")
+        

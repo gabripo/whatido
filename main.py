@@ -57,7 +57,9 @@ if __name__ == "__main__":
     dataset_path = 'database/gen_emails.json'
     dataset = TrainingDataset(dataset_path, sft.tokenizer)
     sft.load_dataset(dataset)
-    sft.train(num_epochs=3)
+    sft.train(num_epochs=10)
     sft.save()
+    sft.print_training_characteristics()
+
     infered_score = sft.infer("Your explanation was clear and coincise.")
     print(infered_score)

@@ -32,6 +32,10 @@ class FineTraining:
     def load_tuned_model(self):
         pass
 
+    @abstractmethod
+    def print_training_characteristics(self):
+        pass
+
 # Command Pattern
 class TrainingCommander:
     def __init__(self):
