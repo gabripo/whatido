@@ -3,7 +3,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 from torch.utils.data import DataLoader
 from .FineTraining import FineTraining
-from .TrainingDataset import TrainingDataset
+from .TrainingDataset import TrainingDataset, TOKENIZER_MAX_LENGTH
 
 DEFAULT_MODEL_NAME = "bert-base-uncased"
 DEFAULT_TOKENIZER_NAME = "auto-tokenizer"
@@ -19,7 +19,9 @@ class SupervisedFineTraining(FineTraining):
 
         self.device = None
         self.model = None
+        self.tuned_model = None
         self.tokenizer = None
+        self.tuned_tokenizer = None
         self.optimizer = None
         
         self.split_options = {
@@ -197,6 +199,28 @@ class SupervisedFineTraining(FineTraining):
         
         return all(value is True for value in supported_names.values())
         
+    def infer(self, input: str = None) -> list:
+        if input is None or type(input) != str:
+            print("Provide a valid input in the form of a string.")
+            return
+        
+        self.tuned_model = AutoModelForSequenceClassification.from_pretrained(self.tuned_model_name).to(self.device)
+        self.tuned_tokenizer = AutoTokenizer.from_pretrained(self.tuned_model_name)
+
+        inputs = self.tuned_tokenizer(
+            input,
+            return_tensors="pt",
+            max_length=TOKENIZER_MAX_LENGTH,
+            truncation=True
+        )
+        inputs = {k: v.to(self.device) for k, v in inputs.items()}
+
+        self.tuned_model.eval()
+        with torch.no_grad():
+            outputs = self.tuned_model(**inputs)
+            scores = outputs.logits.cpu().numpy().flatten()
+        return scores
+    
     def save(self, tuned_model_name: str = None):
         if tuned_model_name is None:
             tuned_model_name = self.tuned_model_name

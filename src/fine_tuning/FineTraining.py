@@ -21,6 +21,10 @@ class FineTraining:
         pass
 
     @abstractmethod
+    def infer(self):
+        pass
+
+    @abstractmethod
     def save(self):
         pass
 

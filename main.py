@@ -59,3 +59,5 @@ if __name__ == "__main__":
     sft.load_dataset(dataset)
     sft.train(num_epochs=3)
     sft.save()
+    infered_score = sft.infer("Your explanation was clear and coincise.")
+    print(infered_score)
