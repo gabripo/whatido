@@ -113,6 +113,7 @@ class SupervisedFineTraining(FineTraining):
         self.build_model()
         self.set_optimizer()
         for epoch in range(num_epochs):
+            print(f"Epoch {epoch + 1} : Training started")
             self.loss['train'] = self._train(self.loaders["train"])
             self.loss['test'] = self._validate(self.loaders["test"])
             print(f"Epoch {epoch + 1} : Train loss {self.loss['train']:.4f} | Test loss {self.loss['test']:.4f}")
