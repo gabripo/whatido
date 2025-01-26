@@ -5,6 +5,10 @@ from .TrainingDataset import TrainingDataset
 class FineTraining:
     def __init__(self):
         self.device = None
+        self.loss = {
+            'train': 0,
+            'test': 0,
+        }
 
     @abstractmethod
     def load_dataset(self, dataset: TrainingDataset):

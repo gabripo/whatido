@@ -101,8 +101,64 @@ class SupervisedFineTraining(FineTraining):
         self.optimizer = supported_optimizers[self.optimizer_name]
     
     def train(self):
+        print(f"Start training for {self.__class__.__name__} ...")
         self.build_model()
         self.set_optimizer()
+        self.loss['train'] = self._train(self.loaders["train"])
+        self.loss['test'] = self._train(self.loaders["test"])
+        epoch = 0 # TODO: loop over epochs
+        print(f"Epoch {epoch + 1} : Train loss {self.loss['train']:.4f} | Test loss {self.loss['test']:.4f}")
+        print(f"T raining for {self.__class__.__name__} concluded!")
+
+    def _train(self, dataloader: DataLoader = None) -> float:
+        if dataloader is None:
+            print(f"Invalid dataloader specified for the training. No model training in {self.__class__.__init__} will be performed.\n")
+            return
+        if not self._can_train():
+            print(f"Impossible to train with {self.__class__.__name__}.\n")
+            return
+        
+        self.model.train()
+        total_loss = 0
+        for batch in dataloader:
+            self.optimizer.zero_grad()
+            batch_sent = self._batch_to_device(batch)
+            outputs = self.model(**batch_sent)
+            loss = outputs.loss
+            loss.backward()
+            self.optimizer.step()
+
+            total_loss += loss.item()
+        return total_loss / len(dataloader)
+
+
+    def _can_train(self) -> bool:
+        checks = {
+            'device': self.device,
+            'tokenizer': self.tokenizer,
+            'model': self.model,
+            'optimizer': self.optimizer,
+        }
+        for name, value in checks.items():
+            if value is None:
+                print(f"No {name} available for {self.__class__.__name__}")
+        
+        return all(value is not None for value in checks.values())
+    
+    def _batch_to_device(self, batch: dict) -> dict:
+        supported_names = {
+            'input_ids',
+            'attention_mask',
+            'labels',
+        }
+        batch_sent = {}
+        for name, value in batch.items():
+            if value is None or len(value) == 0:
+                print(f"Empty value for {name} : nothing will be transferred to device.")
+            elif name in supported_names:
+                batch_sent[name] = value
+                batch_sent[name].to(self.device)
+        return batch_sent
     
     def validate(self):
         return super().validate()
