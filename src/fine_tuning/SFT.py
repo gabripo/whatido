@@ -53,4 +53,12 @@ class SupervisedFineTraining(FineTraining):
             num_labels=self.num_labels,
         )
         self.model.to(self.device)
-        self.optimizer = AdamW(self.model.parameters(), **self.optimizer_options)
+        
+    def set_optimizer(self, optimizer_name: str = 'adamw'):    
+        supported_optimizers = {
+            'adamw': AdamW(self.model.parameters(), **self.optimizer_options),
+        }
+        if not optimizer_name in supported_optimizers:
+            print(f"Specified optimizer {optimizer_name} unsupported! No optimizer for {self.__class__.__name__} will be set.\n")
+            return
+        self.optimizer = supported_optimizers[optimizer_name]
