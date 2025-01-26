@@ -47,6 +47,7 @@ class SupervisedFineTraining(FineTraining):
             'train': 0,
             'test': 0,
         }
+        self.has_trained = False
 
         self.set_device()
         self.set_tokenizer()
@@ -115,6 +116,7 @@ class SupervisedFineTraining(FineTraining):
             self.loss['test'] = self._validate(self.loaders["test"])
             print(f"Epoch {epoch + 1} : Train loss {self.loss['train']:.4f} | Test loss {self.loss['test']:.4f}")
         print(f"Training for {self.__class__.__name__} concluded!")
+        self.has_trained = True
 
     def _train(self, dataloader: DataLoader = None) -> float:
         if dataloader is None:
@@ -193,5 +195,7 @@ class SupervisedFineTraining(FineTraining):
         
         return all(value is True for value in supported_names.values())
         
-    def validate(self):
-        return super().validate()
+    def save(self):
+        if self.has_trained:
+            self.model.save_pretrained('./fine_tuned_model')
+            self.tokenizer.save_pretrained('./fine_tuned_model')

@@ -21,7 +21,7 @@ class FineTraining:
         pass
 
     @abstractmethod
-    def validate(self):
+    def save(self):
         pass
 
 # Command Pattern
