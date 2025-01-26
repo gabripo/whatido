@@ -175,8 +175,9 @@ class SupervisedFineTraining(FineTraining):
                 labels = batch["labels"].to(self.device)
 
                 outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
-                loss = outputs.loss
+                logits = outputs.logits
 
+                loss = self.loss_function(logits, labels)
                 total_loss += loss.item()
         return total_loss / len(dataloader)
 
