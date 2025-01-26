@@ -11,6 +11,15 @@ DEFAULT_OPTIMIZER_NAME = "adamw"
 
 class SupervisedFineTraining(FineTraining):
     def __init__(self, model_name: str = DEFAULT_MODEL_NAME, tokenizer_name: str = DEFAULT_TOKENIZER_NAME, optimizer_name: str = DEFAULT_OPTIMIZER_NAME, split_size: float = 0.2, random_state: int = 1):
+        self.model_name = model_name
+        self.tokenizer_name = tokenizer_name
+        self.optimizer_name = optimizer_name
+
+        self.device = None
+        self.model = None
+        self.tokenizer = None
+        self.optimizer = None
+        
         self.split_options = {
             'test_size': split_size,
             'random_state': random_state
@@ -29,15 +38,6 @@ class SupervisedFineTraining(FineTraining):
             'train': None,
             'test': None,
         }
-        self.model_name = model_name
-        self.tokenizer_name = tokenizer_name
-        self.optimizer_name = optimizer_name
-
-        self.device = None
-        self.model = None
-        self.tokenizer = None
-        self.optimizer = None
-        
         self.num_labels = 0
         self.optimizer_options = {
             'lr': 5e-5
