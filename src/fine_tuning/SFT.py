@@ -47,8 +47,8 @@ class SupervisedFineTraining(FineTraining):
             'lr': 5e-5
         }
         self.loss = {
-            'train': 0,
-            'test': 0,
+            'train': [],
+            'test': [],
         }
         self.has_trained = False
 
@@ -116,9 +116,9 @@ class SupervisedFineTraining(FineTraining):
         self.set_optimizer()
         for epoch in range(num_epochs):
             print(f"Epoch {epoch + 1} : Training started")
-            self.loss['train'] = self._train(self.loaders["train"])
-            self.loss['test'] = self._validate(self.loaders["test"])
-            print(f"Epoch {epoch + 1} : Train loss {self.loss['train']:.4f} | Test loss {self.loss['test']:.4f}")
+            self.loss['train'].append(self._train(self.loaders["train"]))
+            self.loss['test'].append(self._validate(self.loaders["test"]))
+            print(f"Epoch {epoch + 1} : Train loss {self.loss['train'][-1]:.4f} | Test loss {self.loss['test'][-1]:.4f}")
         print(f"Training for {self.__class__.__name__} concluded!")
         self.has_trained = True
 
