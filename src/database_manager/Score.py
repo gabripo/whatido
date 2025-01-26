@@ -7,13 +7,7 @@ MIN_SCORE = 0
 class Score:
     def __init__(self, score_values_in: list[float] = None, score_names_in: list[str] = None):       
         if score_names_in is None:
-            self._score_names = [
-                'english_proficiency',
-                'clarity',
-                'technical_depth',
-                'aggressivity',
-                'empathy'
-            ]
+            self._score_names = self._default_score_names()
         else:
             self._score_names = score_values_in
 
@@ -30,6 +24,16 @@ class Score:
 
     def _bounded_value(self, value: float):
         return max(min(value, MAX_SCORE), MIN_SCORE)
+    
+    @classmethod
+    def _default_score_names(self):
+        return [
+                'english_proficiency',
+                'clarity',
+                'technical_depth',
+                'aggressivity',
+                'empathy'
+            ]
 
     def get_max_score(self):
         return max(self._score_values)
