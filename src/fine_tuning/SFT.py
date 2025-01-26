@@ -42,6 +42,9 @@ class SupervisedFineTraining(FineTraining):
             'lr': 5e-5
         }
 
+        self.set_device()
+        self.set_tokenizer()
+
     def load_dataset(self, dataset: TrainingDataset):
         self.train_data = dict(zip(self.train_data.keys(), train_test_split(dataset, **self.split_options)))
         self.loaders["train"] = DataLoader(self.train_data['X_train'], **self.loaders_options)
@@ -98,8 +101,6 @@ class SupervisedFineTraining(FineTraining):
         self.optimizer = supported_optimizers[self.optimizer_name]
     
     def train(self):
-        self.set_device()
-        self.set_tokenizer()
         self.build_model()
         self.set_optimizer()
     
