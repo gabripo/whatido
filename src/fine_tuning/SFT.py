@@ -122,7 +122,7 @@ class SupervisedFineTraining(FineTraining):
             return
         if not self._can_train():
             print(f"Impossible to train with {self.__class__.__name__}.\n")
-            return
+            return 0
         
         self.model.train()
         total_loss = 0
