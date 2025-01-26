@@ -15,6 +15,7 @@ class SupervisedFineTraining(FineTraining):
         self.tokenizer_name = tokenizer_name
         self.optimizer_name = optimizer_name
 
+        self.device = None
         self.model = None
         self.tokenizer = None
         self.optimizer = None
@@ -40,6 +41,10 @@ class SupervisedFineTraining(FineTraining):
         self.num_labels = 0
         self.optimizer_options = {
             'lr': 5e-5
+        }
+        self.loss = {
+            'train': 0,
+            'test': 0,
         }
 
         self.set_device()
