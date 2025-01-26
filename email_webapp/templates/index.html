@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Email Analyzer</h1>
+        <textarea id="email-text" placeholder="Enter your email text here..."></textarea>
+        <button id="send-button">Send</button>
+        <div class="indicators">
+            <p>English proficiency: <span id="english_proficiency">0</span></p>
+            <p>Clarity: <span id="clarity">0</span></p>
+            <p>Technical Depth: <span id="technical_depth">0</span></p>
+            <p>Aggressivity: <span id="aggressivity">0</span></p>
+            <p>Empathy: <span id="empathy">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('send-button').addEventListener('click', function () {
+            const emailText = document.getElementById('email-text').value;
+
+            fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email_text: emailText }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('english_proficiency').textContent = data.english_proficiency.toFixed(2);
+                    document.getElementById('clarity').textContent = data.clarity.toFixed(2);
+                    document.getElementById('technical_depth').textContent = data.technical_depth.toFixed(2);
+                    document.getElementById('aggressivity').textContent = data.aggressivity.toFixed(2);
+                    document.getElementById('empathy').textContent = data.empathy.toFixed(2);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+
+</html>
