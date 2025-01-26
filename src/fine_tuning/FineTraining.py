@@ -1,3 +1,4 @@
+import torch
 from abc import abstractmethod
 from .TrainingDataset import TrainingDataset
 
@@ -5,6 +6,12 @@ class FineTraining:
     @abstractmethod
     def load_dataset(self, dataset: TrainingDataset):
         pass
+
+    def set_device(self):
+        if torch.cuda.is_available():
+            self.device = torch.device("cuda")
+        else:
+            self.device = torch.device("cpu")
     
     @abstractmethod
     def train(self):

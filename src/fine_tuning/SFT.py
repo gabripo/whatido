@@ -49,12 +49,6 @@ class SupervisedFineTraining(FineTraining):
         self.loaders["test"] = DataLoader(self.train_data['X_test'], **self.loaders_options)
         self.num_labels = dataset.num_labels
 
-    def set_device(self):
-        if torch.cuda.is_available():
-            self.device = torch.device("cuda")
-        else:
-            self.device = torch.device("cpu")
-
     def build_model(self):
         if self.model_name is None:
             print(f"No model selected for {self.__class__.__name__}\n")
