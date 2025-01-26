@@ -8,6 +8,7 @@ from .TrainingDataset import TrainingDataset
 DEFAULT_MODEL_NAME = "bert-base-uncased"
 DEFAULT_TOKENIZER_NAME = "auto-tokenizer"
 DEFAULT_OPTIMIZER_NAME = "adamw"
+DEFAULT_NUM_EPOCHS = 1
 
 class SupervisedFineTraining(FineTraining):
     def __init__(self, model_name: str = DEFAULT_MODEL_NAME, tokenizer_name: str = DEFAULT_TOKENIZER_NAME, optimizer_name: str = DEFAULT_OPTIMIZER_NAME, split_size: float = 0.2, random_state: int = 1):
@@ -105,14 +106,14 @@ class SupervisedFineTraining(FineTraining):
             return
         self.optimizer = supported_optimizers[self.optimizer_name]
     
-    def train(self):
+    def train(self, num_epochs: int = DEFAULT_NUM_EPOCHS):
         print(f"Start training for {self.__class__.__name__} ...")
         self.build_model()
         self.set_optimizer()
-        self.loss['train'] = self._train(self.loaders["train"])
-        self.loss['test'] = self._train(self.loaders["test"])
-        epoch = 0 # TODO: loop over epochs
-        print(f"Epoch {epoch + 1} : Train loss {self.loss['train']:.4f} | Test loss {self.loss['test']:.4f}")
+        for epoch in range(num_epochs):
+            self.loss['train'] = self._train(self.loaders["train"])
+            self.loss['test'] = self._train(self.loaders["test"])
+            print(f"Epoch {epoch + 1} : Train loss {self.loss['train']:.4f} | Test loss {self.loss['test']:.4f}")
         print(f"T raining for {self.__class__.__name__} concluded!")
 
     def _train(self, dataloader: DataLoader = None) -> float:
