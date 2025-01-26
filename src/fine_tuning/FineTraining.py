@@ -3,6 +3,9 @@ from abc import abstractmethod
 from .TrainingDataset import TrainingDataset
 
 class FineTraining:
+    def __init__(self):
+        self.device = None
+
     @abstractmethod
     def load_dataset(self, dataset: TrainingDataset):
         pass
