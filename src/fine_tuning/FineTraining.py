@@ -15,7 +15,10 @@ class FineTraining:
         pass
 
     def set_device(self):
-        if torch.cuda.is_available():
+        if torch.backends.mps.is_available():
+            # Apple Metal support
+            self.device = torch.device("mps")
+        elif torch.cuda.is_available():
             self.device = torch.device("cuda")
         else:
             self.device = torch.device("cpu")
