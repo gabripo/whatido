@@ -1,6 +1,6 @@
 from sklearn.model_selection import train_test_split
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
-import torch
+import torch, os
 from torch.utils.data import DataLoader
 from .FineTraining import FineTraining
 from .TrainingDataset import TrainingDataset, TOKENIZER_MAX_LENGTH
@@ -208,12 +208,11 @@ class SupervisedFineTraining(FineTraining):
         if input is None or type(input) != str:
             print("Provide a valid input in the form of a string.")
             return
-        if not self.has_trained:
-            print("Model was not fine-tuned, train it before trying to infere.")
-            return
         
-        self.tuned_model = AutoModelForSequenceClassification.from_pretrained(self.tuned_model_name).to(self.device)
-        self.tuned_tokenizer = AutoTokenizer.from_pretrained(self.tuned_model_name)
+        self.load_tuned_model(self.tuned_model_name)
+        if not self.has_trained:
+            print("Fine-tuned model not available, train it before trying to infere.")
+            return
 
         inputs = self.tuned_tokenizer(
             input,
@@ -238,3 +237,16 @@ class SupervisedFineTraining(FineTraining):
         if self.has_trained:
             self.model.save_pretrained(f'./{self.tuned_model_name}')
             self.tokenizer.save_pretrained(f'./{self.tuned_model_name}')
+
+    def load_tuned_model(self, tuned_model_name: str = None):
+        if tuned_model_name is None:
+            tuned_model_name = self.tuned_model_name
+        
+        tuned_model_path = os.path.abspath(tuned_model_name)
+        if os.path.exists(tuned_model_path):
+            try:
+                self.tuned_model = AutoModelForSequenceClassification.from_pretrained(tuned_model_name).to(self.device)
+                self.tuned_tokenizer = AutoTokenizer.from_pretrained(tuned_model_name)
+                self.has_trained = True
+            except:
+                print(f"Impossible to load tuned model with name {tuned_model_name}")
