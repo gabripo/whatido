@@ -48,13 +48,7 @@ class SupervisedFineTraining(FineTraining):
         self.loaders["train"] = DataLoader(self.train_data['X_train'], **self.loaders_options)
         self.loaders["test"] = DataLoader(self.train_data['X_test'], **self.loaders_options)
         self.num_labels = dataset.num_labels
-    
-    def train(self):
-        return super().train()
-    
-    def validate(self):
-        return super().validate()
-    
+
     def build_model(self):
         if self.model_name is None:
             print(f"No model selected for {self.__class__.__name__}\n")
@@ -100,3 +94,11 @@ class SupervisedFineTraining(FineTraining):
             print(f"Specified optimizer {self.optimizer_name} unsupported! No optimizer for {self.__class__.__name__} will be set.\n")
             return
         self.optimizer = supported_optimizers[self.optimizer_name]
+    
+    def train(self):
+        self.set_tokenizer()
+        self.build_model()
+        self.set_optimizer()
+    
+    def validate(self):
+        return super().validate()
