@@ -144,6 +144,27 @@ class SupervisedFineTraining(FineTraining):
             total_loss += loss.item()
         return total_loss / len(dataloader)
 
+    def _validate(self, dataloader: DataLoader = None) -> float:
+        if dataloader is None:
+            print(f"Invalid dataloader specified for the validation. No model validation in {self.__class__.__init__} will be performed.\n")
+            return 0
+
+        self.model.eval()
+        total_loss = 0
+        with torch.no_grad():
+            for batch in dataloader:
+                if not self._is_batch_valid(batch):
+                    print("Invalid batch, skipping the loop this time...")
+                    continue
+                input_ids = batch["input_ids"].to(self.device)
+                attention_mask = batch["attention_mask"].to(self.device)
+                labels = batch["labels"].to(self.device)
+
+                outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
+                loss = outputs.loss
+
+                total_loss += loss.item()
+        return total_loss / len(dataloader)
 
     def _can_train(self) -> bool:
         checks = {
@@ -171,28 +192,6 @@ class SupervisedFineTraining(FineTraining):
                 supported_names[name] = True
         
         return all(value is True for value in supported_names.values())
-    
-    def _validate(self, dataloader: DataLoader = None) -> float:
-        if dataloader is None:
-            print(f"Invalid dataloader specified for the validation. No model validation in {self.__class__.__init__} will be performed.\n")
-            return 0
-
-        self.model.eval()
-        total_loss = 0
-        with torch.no_grad():
-            for batch in dataloader:
-                if not self._is_batch_valid(batch):
-                    print("Invalid batch, skipping the loop this time...")
-                    continue
-                input_ids = batch["input_ids"].to(self.device)
-                attention_mask = batch["attention_mask"].to(self.device)
-                labels = batch["labels"].to(self.device)
-
-                outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
-                loss = outputs.loss
-
-                total_loss += loss.item()
-        return total_loss / len(dataloader)
         
     def validate(self):
         return super().validate()
