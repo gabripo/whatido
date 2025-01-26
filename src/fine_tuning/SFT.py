@@ -127,8 +127,15 @@ class SupervisedFineTraining(FineTraining):
         total_loss = 0
         for batch in dataloader:
             self.optimizer.zero_grad()
-            batch_sent = self._batch_to_device(batch)
-            outputs = self.model(**batch_sent)
+
+            if not self._is_batch_valid(batch):
+                print("Invalid batch, skipping the loop this time...")
+                continue
+            input_ids = batch["input_ids"].to(self.device)
+            attention_mask = batch["attention_mask"].to(self.device)
+            labels = batch["labels"].to(self.device)
+
+            outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
             loss = outputs.loss
             loss.backward()
             self.optimizer.step()
@@ -150,20 +157,21 @@ class SupervisedFineTraining(FineTraining):
         
         return all(value is not None for value in checks.values())
     
-    def _batch_to_device(self, batch: dict) -> dict:
+    def _is_batch_valid(self, batch: dict) -> bool:
         supported_names = {
-            'input_ids',
-            'attention_mask',
-            'labels',
+            'input_ids': False,
+            'attention_mask': False,
+            'labels': False,
         }
-        batch_sent = {}
         for name, value in batch.items():
             if value is None or len(value) == 0:
                 print(f"Empty value for {name} : nothing will be transferred to device.")
-            elif name in supported_names:
-                batch_sent[name] = value
-                batch_sent[name].to(self.device)
-        return batch_sent
+            if name in supported_names:
+                supported_names[name] = True
+        
+        return all(value is True for value in supported_names.values())
+        
+        
     
     def validate(self):
         return super().validate()
