@@ -6,9 +6,10 @@ from .FineTraining import FineTraining
 from .TrainingDataset import TrainingDataset
 
 DEFAULT_MODEL_NAME = "bert-base-uncased"
+DEFAULT_TOKENIZER = "auto-tokenizer"
 
 class SupervisedFineTraining(FineTraining):
-    def __init__(self, model_name: str = DEFAULT_MODEL_NAME, tokenizer = None, split_size: float = 0.2, random_state: int = 1):
+    def __init__(self, model_name: str = DEFAULT_MODEL_NAME, tokenizer = DEFAULT_TOKENIZER, split_size: float = 0.2, random_state: int = 1):
         self.split_options = {
             'test_size': split_size,
             'random_state': random_state
@@ -29,7 +30,8 @@ class SupervisedFineTraining(FineTraining):
         }
         self.model_name = None
         self.set_model_name(model_name)
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name) if tokenizer is None else None
+        self.tokenizer = None
+        self.set_tokenizer(tokenizer)
         self.num_labels = 0
         self.model = None
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -63,6 +65,19 @@ class SupervisedFineTraining(FineTraining):
             print(f"Model {model_name} chosen for {self.__class__.__name__}\n")
         else:
             print(f"No model selected for {self.__class__.__name__}\n")
+
+    def set_tokenizer(self, tokenizer: str = DEFAULT_TOKENIZER):
+        if self.model_name is None:
+            print(f"Invalid model name {self.model_name} for {self.__class__.__name__} ! No tokenizer can be selected.\n")
+            return
+        
+        supported_tokenizers = {
+            'auto-tokenizer': AutoTokenizer.from_pretrained(self.model_name)
+        }
+        if not tokenizer in supported_tokenizers:
+            print(f"Specified tokenizer {tokenizer} unsupported! No tokenizer for {self.__class__.__name__}\n")
+            return
+        self.tokenizer = supported_tokenizers[tokenizer]
     
     def set_optimizer(self, optimizer_name: str = 'adamw'):    
         supported_optimizers = {
