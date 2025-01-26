@@ -15,7 +15,6 @@ class SupervisedFineTraining(FineTraining):
         self.tokenizer_name = tokenizer_name
         self.optimizer_name = optimizer_name
 
-        self.device = None
         self.model = None
         self.tokenizer = None
         self.optimizer = None
