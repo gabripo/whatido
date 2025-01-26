@@ -33,12 +33,12 @@ class SupervisedFineTraining(FineTraining):
         self.tokenizer_name = tokenizer_name
         self.optimizer_name = optimizer_name
 
+        self.device = None
         self.model = None
         self.tokenizer = None
         self.optimizer = None
         
         self.num_labels = 0
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.optimizer_options = {
             'lr': 5e-5
         }
@@ -49,9 +49,18 @@ class SupervisedFineTraining(FineTraining):
         self.loaders["test"] = DataLoader(self.train_data['X_test'], **self.loaders_options)
         self.num_labels = dataset.num_labels
 
+    def set_device(self):
+        if torch.cuda.is_available():
+            self.device = torch.device("cuda")
+        else:
+            self.device = torch.device("cpu")
+
     def build_model(self):
         if self.model_name is None:
             print(f"No model selected for {self.__class__.__name__}\n")
+            return
+        if self.device is None:
+            print(f"Device not properly set for {self.__class__.__name__} ! Impossible to send model {self.model_name}.\n")
             return
         self.model = AutoModelForSequenceClassification.from_pretrained(
             self.model_name,
@@ -96,6 +105,7 @@ class SupervisedFineTraining(FineTraining):
         self.optimizer = supported_optimizers[self.optimizer_name]
     
     def train(self):
+        self.set_device()
         self.set_tokenizer()
         self.build_model()
         self.set_optimizer()
