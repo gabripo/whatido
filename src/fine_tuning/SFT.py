@@ -15,6 +15,7 @@ class SupervisedFineTraining(FineTraining):
         self.model_name = model_name
         self.tokenizer_name = tokenizer_name
         self.optimizer_name = optimizer_name
+        self.tuned_model_name = model_name + "_fine_tuned"
 
         self.device = None
         self.model = None
@@ -195,7 +196,12 @@ class SupervisedFineTraining(FineTraining):
         
         return all(value is True for value in supported_names.values())
         
-    def save(self):
+    def save(self, tuned_model_name: str = None):
+        if tuned_model_name is None:
+            tuned_model_name = self.tuned_model_name
+        else:
+            self.tuned_model_name = tuned_model_name
+
         if self.has_trained:
-            self.model.save_pretrained('./fine_tuned_model')
-            self.tokenizer.save_pretrained('./fine_tuned_model')
+            self.model.save_pretrained(f'./{self.tuned_model_name}')
+            self.tokenizer.save_pretrained(f'./{self.tuned_model_name}')

@@ -58,3 +58,4 @@ if __name__ == "__main__":
     dataset = TrainingDataset(dataset_path, sft.tokenizer)
     sft.load_dataset(dataset)
     sft.train(num_epochs=3)
+    sft.save()
