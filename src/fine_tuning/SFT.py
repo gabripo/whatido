@@ -46,6 +46,7 @@ class SupervisedFineTraining(FineTraining):
         self.optimizer_options = {
             'lr': 5e-5
         }
+        self.loss_function = torch.nn.MSELoss()
         self.loss = {
             'train': [],
             'test': [],
@@ -148,7 +149,9 @@ class SupervisedFineTraining(FineTraining):
             labels = batch["labels"].to(self.device)
 
             outputs = self.model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
-            loss = outputs.loss
+            logits = outputs.logits
+
+            loss = self.loss_function(logits, labels)
             loss.backward()
             self.optimizer.step()
 
