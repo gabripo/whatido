@@ -1,5 +1,5 @@
 from sklearn.model_selection import train_test_split
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, AdamW
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 from torch.utils.data import DataLoader
 from .FineTraining import FineTraining
@@ -100,7 +100,7 @@ class SupervisedFineTraining(FineTraining):
             self.optimizer_name = optimizer_name
 
         supported_optimizers = {
-            'adamw': AdamW(self.model.parameters(), **self.optimizer_options),
+            'adamw': torch.optim.Adam(self.model.parameters(), **self.optimizer_options),
         }
         if not self.optimizer_name in supported_optimizers:
             print(f"Specified optimizer {self.optimizer_name} unsupported! No optimizer for {self.__class__.__name__} will be set.\n")
