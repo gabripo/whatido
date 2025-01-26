@@ -203,6 +203,9 @@ class SupervisedFineTraining(FineTraining):
         if input is None or type(input) != str:
             print("Provide a valid input in the form of a string.")
             return
+        if not self.has_trained:
+            print("Model was not fine-tuned, train it before trying to infere.")
+            return
         
         self.tuned_model = AutoModelForSequenceClassification.from_pretrained(self.tuned_model_name).to(self.device)
         self.tuned_tokenizer = AutoTokenizer.from_pretrained(self.tuned_model_name)
