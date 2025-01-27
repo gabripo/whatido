@@ -31,7 +31,7 @@ class LlamaTextQuery:
         self.model_name = model_name
         self.messages = history
 
-    def query(self, query_text: str, include_history: bool = True, add_to_history: bool = True):
+    def query(self, query_text: str, llamakwargs: dict = {}, include_history: bool = True, add_to_history: bool = True):
         new_query = {
             'role': 'user',
             'content': query_text,
@@ -43,7 +43,8 @@ class LlamaTextQuery:
         
         response = ollama.chat(
             model = self.model_name,
-            messages = self.messages
+            messages = self.messages,
+            **llamakwargs
         )
 
         if add_to_history:

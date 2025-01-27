@@ -18,8 +18,9 @@ class DatabaseEmails(Database):
         self.database_path = path
         self.num_emails = self.count_emails()
         self.generation_options = {
+            'llamakwargs': {},
             'include_history': False,
-            'consider_history': False
+            'add_to_history': False
         }
         self.semaphore = asyncio.Semaphore(DEFAULT_MAX_CONCURRENT_REQUESTS)
         self.queries = DEFAULT_QUERIES
@@ -55,11 +56,13 @@ class DatabaseEmails(Database):
     async def _llama_text_call(self, query_text: str, call_number: int = 0):
         query_obj = LlamaTextQuery()
         print(f"Generating for query \"{query_text}\", call {call_number} ...\n")
+        kwargs = {
+            'query_text': query_text,
+            **self.generation_options
+        }
         response = await asyncio.to_thread(
             query_obj.query,
-            query_text,
-            self.generation_options['include_history'],
-            self.generation_options['consider_history']
+            **kwargs
             )
         print(f"Response for query \"{query_text}\", call {call_number} has been generated!\n")
         self.num_emails += 1
