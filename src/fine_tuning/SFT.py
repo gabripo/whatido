@@ -4,7 +4,7 @@ import torch, os
 from torch.utils.data import DataLoader
 from .FineTraining import FineTraining
 from .TrainingDataset import TrainingDataset, TOKENIZER_MAX_LENGTH
-from ..database_manager.Score import MAX_SCORE, MIN_SCORE, Score
+from ..datatypes.Score import MAX_SCORE, MIN_SCORE, Score
 
 DEFAULT_MODEL_NAME = "bert-base-uncased"
 DEFAULT_TOKENIZER_NAME = "auto-tokenizer"
