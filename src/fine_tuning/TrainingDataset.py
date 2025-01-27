@@ -20,7 +20,7 @@ class TrainingDataset(Dataset):
 
     def _import_data_from_json(self, json_file_path: str):
         if os.path.exists(json_file_path):
-            with open(json_file_path, 'r') as json_file:
+            with open(json_file_path, 'r', encoding='utf-8') as json_file:
                 try:
                     self.data = json.load(json_file)
                 except:
@@ -43,7 +43,9 @@ class TrainingDataset(Dataset):
         loaded_item = self._empty_item()
 
         if "email" in item.keys() and not self.tokenizer is None:
-            text = item["email"]
+            subject = item["email"]["email_subject"]
+            object = item["email"]["email_text"]
+            text = f"Subject: {subject}\nObject: {object}"
             encoding = self.tokenizer(
                 text,
                 max_length=self.max_length,

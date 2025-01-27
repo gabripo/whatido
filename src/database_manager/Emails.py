@@ -1,7 +1,8 @@
-import asyncio, os, json
+import asyncio, os, json, re
 from .Database import Database
 from ..models_interfaces.Llama import LlamaTextQuery
 from ..datatypes.Score import Score
+from ..datatypes.Response import EmailResponse
 
 DEFAULT_QUERIES = ['generate an e-mail']
 DEFAULT_NUM_EMAILS_TO_GEN_PER_QUERY = 10
@@ -18,7 +19,9 @@ class DatabaseEmails(Database):
         self.database_path = path
         self.num_emails = self.count_emails()
         self.generation_options = {
-            'llamakwargs': {},
+            'llamakwargs': {
+                'format': EmailResponse.model_json_schema()
+                },
             'include_history': False,
             'add_to_history': False
         }
@@ -42,7 +45,13 @@ class DatabaseEmails(Database):
     async def _generate_n_emails(self, query: QueryScorePair):
         query_text = query.query_text
         scores_dict = query.scores.scores
-        emails = [{'email': await self._llama_text_call_limited(query_text, call_number), 'score': scores_dict} for call_number in range(self.num_emails_to_gen_per_query)]
+        emails = [
+            {
+            'email': await self._llama_text_call_limited(query_text, call_number),
+            'score': scores_dict
+            }
+            for call_number in range(self.num_emails_to_gen_per_query)
+            ]
         if self.store_while_generating:
             async with self.file_lock:
                 for emails_dict in emails:
@@ -51,7 +60,12 @@ class DatabaseEmails(Database):
 
     async def _llama_text_call_limited(self, query_text: str, call_number: int = 0):
         async with self.semaphore:
-            return await self._llama_text_call(query_text, call_number)
+            response = await self._llama_text_call(query_text, call_number)
+            try:
+                return EmailResponse.model_validate_json(response)
+            except:
+                print(f"Fallback for response: {response} ...")
+                return {'email_subject': '', 'email_text': f"{response}"}
 
     async def _llama_text_call(self, query_text: str, call_number: int = 0):
         query_obj = LlamaTextQuery()
@@ -66,7 +80,15 @@ class DatabaseEmails(Database):
             )
         print(f"Response for query \"{query_text}\", call {call_number} has been generated!\n")
         self.num_emails += 1
-        return response['content']
+        return self._format_response(response['content'])
+    
+    @classmethod
+    def _format_response(self, response: str):
+        return re.sub(
+            r'<[^>]+>',
+            '',
+            response.encode('utf-8', errors='replace').decode('utf-8')
+            )
     
     def store(self):
         return super().store()
@@ -87,7 +109,7 @@ class DatabaseEmails(Database):
     def count_emails(self):
         database_path = os.path.abspath(os.path.join(self.database_path, self.database_name + '.json'))
         if not self.is_json_file_empty(database_path) and self.is_json_readable(database_path):
-            with open(database_path, 'r') as json_file:
+            with open(database_path, 'r', encoding='utf-8') as json_file:
                 data = json.load(json_file)
             return len(data)
         return 0

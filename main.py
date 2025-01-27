@@ -44,13 +44,13 @@ if __name__ == "__main__":
     if GENERATE_EMAILS:
         de = DatabaseEmails('gen_emails')
         queries = [
-            QueryScorePair('write an aggressive e-mail, max 100 characters', [10, 10, 0, 10, 0]),
-            QueryScorePair('write an e-mail explaining low-pass filtering, max 300 characters', [10, 3, 10, 0, 2]),
-            QueryScorePair('write an e-mail explaining the usage of epoustoflant in French with an example, max 300 characters', [6, 10, 0, 0, 7]),
-            QueryScorePair('scrivi una e-mail scusandoti di un evento grave accaduto in azienda, max 200 caratteri e in Italiano', [0, 9, 0, 0, 10]),
-            QueryScorePair('schreib eine aggressive E-Mail, max 200 Buchstaben und auf Deutsch',[0, 10, 0, 10, 0]),
+            QueryScorePair('write an aggressive e-mail', [10, 10, 0, 10, 0]),
+            QueryScorePair('write an e-mail explaining low-pass filtering', [10, 3, 10, 0, 2]),
+            QueryScorePair('write an e-mail explaining the usage of epoustoflant in French with an example', [6, 10, 0, 0, 7]),
+            QueryScorePair('scrivi una e-mail scusandoti di un evento grave accaduto in azienda in Italiano', [0, 9, 0, 0, 10]),
+            QueryScorePair('schreib eine aggressive E-Mail auf Deutsch',[0, 10, 0, 10, 0]),
             ]
-        de.build(queries, 10)
+        de.build(queries, 20)
         de.print()
 
     sft = SupervisedFineTraining()
@@ -61,5 +61,5 @@ if __name__ == "__main__":
     sft.save()
     sft.print_training_characteristics()
 
-    infered_score = sft.infer("Your explanation was clear and coincise.")
+    infered_score = sft.infer("Subject: Sorry\nObject: I am sorry. I cannot speak German.")
     print(infered_score)

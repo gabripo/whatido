@@ -79,7 +79,7 @@ class Database:
 
     def _dump_json_data_single(self, filename_full_path: str, data: list):
         file_access_type = 'r+' if self.is_json_readable(filename_full_path) else 'w'
-        with open(filename_full_path, file_access_type) as json_file:
+        with open(filename_full_path, file_access_type, encoding='utf-8') as json_file:
             if file_access_type != 'w' and not self.is_json_file_empty(filename_full_path):
                 existing_data = json.load(json_file)
                 data.extend(existing_data)  # new data on the top
@@ -93,7 +93,7 @@ class Database:
     def is_json_readable(self, filename_full_path: str) -> bool:
         if os.path.exists(filename_full_path):
             try:
-                with open(filename_full_path, 'r') as json_file:
+                with open(filename_full_path, 'r', encoding='utf-8') as json_file:
                     json.load(json_file)
                 return True
             except:
@@ -104,7 +104,7 @@ class Database:
     def is_json_file_empty(self, file_full_path: str) -> bool:
         if not os.path.exists(file_full_path):
             return True
-        with open(file_full_path, 'r') as file:
+        with open(file_full_path, 'r', encoding='utf-8') as file:
             file.seek(0, 2)
             return file.tell() == 0
 
