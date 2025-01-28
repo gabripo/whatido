@@ -6,6 +6,8 @@ MIN_SCORE = 0
 
 class Score:
     def __init__(self, score_values_in: list[float] = None, score_names_in: list[str] = None):       
+        if score_values_in is None:
+            score_values_in = []
         if score_names_in is None:
             self._score_names = self._default_score_names()
         else:
