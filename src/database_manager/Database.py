@@ -13,6 +13,7 @@ class Database:
             cls._instance.create_folder()
             cls._instance.store_single_queries = False
             cls._instance.json_dump_settings = {
+                'ensure_ascii': False,
                 'indent': 4,
                 'default': lambda obj: obj.__json__()
             }
