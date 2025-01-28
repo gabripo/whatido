@@ -33,9 +33,9 @@ class QueryCommander:
     def execute(self, query):
         history = self.query_history.get_history()
         if 'images' in query:
-            query_obj = LlamaVisionQuery(query['images'], history)
+            query_obj = LlamaVisionQuery(images=query['images'], history=history)
         else:
-            query_obj = LlamaTextQuery(history)
+            query_obj = LlamaTextQuery(history=history)
 
         response = query_obj.query(query['query'])
 
