@@ -11,7 +11,7 @@ class Score:
         if score_names_in is None:
             self._score_names = self._default_score_names()
         else:
-            self._score_names = score_values_in
+            self._score_names = score_names_in
 
         self._score_values = [random.uniform(MAX_SCORE, MIN_SCORE) for _ in range(len(self._score_names))]
         if len(score_values_in) <= len(self._score_names):
