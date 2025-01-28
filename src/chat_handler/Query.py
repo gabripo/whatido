@@ -1,4 +1,4 @@
-from ..models_interfaces.Llama import LlamaTextQuery, LlamaVisionQuery
+from ..models_interfaces.Llama import LlamaQueryFactory
 
 # Singleton Pattern
 class QueryHistory:
@@ -33,11 +33,11 @@ class QueryCommander:
     def execute(self, query):
         history = self.query_history.get_history()
         if 'images' in query:
-            query_obj = LlamaVisionQuery(images=query['images'], history=history)
+            query_obj = LlamaQueryFactory.create_vision_query(images=query['images'], history=history)
         else:
-            query_obj = LlamaTextQuery(history=history)
-
-        response = query_obj.query(query['query'])
+            query_obj = LlamaQueryFactory.create_text_query(history=history)
+        
+        response = query_obj.query(query_text=query['query'])
 
         self.query_history.add_message(response)
 
