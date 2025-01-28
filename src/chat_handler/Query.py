@@ -1,4 +1,4 @@
-from ..models_interfaces.Llama import LlamaQueryFactory
+from ..models_interfaces.ModelFactory import ModelFactory
 
 # Singleton Pattern
 class QueryHistory:
@@ -30,12 +30,13 @@ class QueryCommander:
     def __init__(self, query_history: QueryHistory):
         self.query_history = query_history
 
-    def execute(self, query):
+    def execute(self, query: dict, model_family: str = 'llama'):
+        factory_obj = ModelFactory.create_model_factory(model_family=model_family)
         history = self.query_history.get_history()
         if 'images' in query:
-            query_obj = LlamaQueryFactory.create_vision_query(images=query['images'], history=history)
+            query_obj = factory_obj.create_vision_query(images=query['images'], history=history)
         else:
-            query_obj = LlamaQueryFactory.create_text_query(history=history)
+            query_obj = factory_obj.create_text_query(history=history)
         
         response = query_obj.query(query_text=query['query'])
 

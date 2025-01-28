@@ -1,6 +1,6 @@
 import asyncio, os, json, re
 from .Database import Database
-from ..models_interfaces.Llama import LlamaQueryFactory
+from ..models_interfaces.ModelFactory import ModelFactory
 from ..datatypes.Score import Score
 from ..datatypes.Response import EmailResponse
 
@@ -68,7 +68,8 @@ class DatabaseEmails(Database):
                 return {'email_subject': '', 'email_text': f"{response}"}
 
     async def _llama_text_call(self, query_text: str, call_number: int = 0):
-        query_obj = LlamaQueryFactory.create_text_query()
+        factory_obj = ModelFactory.create_model_factory()
+        query_obj = factory_obj.create_text_query()
         print(f"Generating for query \"{query_text}\", call {call_number} ...\n")
         kwargs = {
             'query_text': query_text,

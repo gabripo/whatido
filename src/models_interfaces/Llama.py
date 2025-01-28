@@ -1,6 +1,7 @@
 import ollama
+from .Model import ModelQuery, ModelQueryFactory
 
-class LlamaQuery:
+class LlamaQuery(ModelQuery):
     def __init__(
             self,
             model_name: str,
@@ -39,7 +40,7 @@ class LlamaQuery:
         return response.message
 
 # Factory Pattern
-class LlamaQueryFactory:
+class LlamaQueryFactory(ModelQueryFactory):
     @staticmethod
     def create_text_query(
         history: list = [],
