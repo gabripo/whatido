@@ -1,0 +1,142 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" version="26.0.10">
+  <diagram name="Page-1" id="Xd_v0qLZILoLZXpPPBsT">
+    <mxGraphModel dx="2711" dy="1255" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SDC2UrADh2dyTHGClG3e-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="dn49l2DXKdN8Z0686AND-2" target="SDC2UrADh2dyTHGClG3e-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="dn49l2DXKdN8Z0686AND-2" target="dn49l2DXKdN8Z0686AND-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-2" value="Gen AI&lt;br&gt;(deepseek)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-116" y="-118" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-4" value="&lt;div&gt;- e-mails&lt;/div&gt;&lt;div&gt;(text)&lt;/div&gt;&lt;div&gt;- sensitivity scores&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
+          <mxGeometry x="-40" y="-4.5" width="108" height="113" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-11" value="Fine tuning of BERT&lt;br&gt;(PyTorch training)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="204" y="22" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-12" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="dn49l2DXKdN8Z0686AND-4" target="dn49l2DXKdN8Z0686AND-11" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="175" y="224" as="sourcePoint" />
+            <mxPoint x="225" y="174" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-13" value="e-mail&lt;br&gt;(text)" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="18" y="362" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-14" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="dn49l2DXKdN8Z0686AND-13" target="dn49l2DXKdN8Z0686AND-19" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="466" y="411.5" as="sourcePoint" />
+            <mxPoint x="472" y="415" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-17" value="&lt;div&gt;database&lt;/div&gt;&lt;div&gt;(profile of employees with sensitivity analysis from email and productivity analysis from economic model)&lt;br&gt;&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
+          <mxGeometry x="431" y="482" width="106" height="176.5" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-18" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="dn49l2DXKdN8Z0686AND-21" target="dn49l2DXKdN8Z0686AND-17" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="484" y="288.5" as="sourcePoint" />
+            <mxPoint x="534" y="238.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-19" value="&lt;div&gt;fine-tuned&lt;/div&gt;&lt;div&gt;BERT&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="202.5" y="318" width="123" height="148" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-20" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="dn49l2DXKdN8Z0686AND-11" target="dn49l2DXKdN8Z0686AND-19" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="175" y="224" as="sourcePoint" />
+            <mxPoint x="225" y="174" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-21" value="&lt;div&gt;determine email scores of employee x&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="399" y="362" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-22" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="dn49l2DXKdN8Z0686AND-19" target="dn49l2DXKdN8Z0686AND-21" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="175" y="224" as="sourcePoint" />
+            <mxPoint x="225" y="174" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-23" value="e-mail&lt;br&gt;(screenshot)" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="-346" y="362" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-24" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="dn49l2DXKdN8Z0686AND-23" target="dn49l2DXKdN8Z0686AND-25" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="165" y="337" as="sourcePoint" />
+            <mxPoint x="-187" y="426" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-25" value="&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;fine tuned Vision model&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(on general computer use)&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-164" y="329.5" width="90" height="242.5" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-26" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="dn49l2DXKdN8Z0686AND-25" target="dn49l2DXKdN8Z0686AND-13" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="149" y="266" as="sourcePoint" />
+            <mxPoint x="195" y="218" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-1" value="general computer&lt;div&gt;screenshot&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="-356" y="462" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-2" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.033;entryY=0.619;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="dn49l2DXKdN8Z0686AND-25">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-241" y="481" as="sourcePoint" />
+            <mxPoint x="-169" y="479" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-4" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-74" y="522" as="sourcePoint" />
+            <mxPoint x="125" y="522" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-5" value="&lt;div&gt;determine weekly productivity score of employee x&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="116" y="488" width="139" height="63" as="geometry" />
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-6" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="245" y="522" as="sourcePoint" />
+            <mxPoint x="429" y="524" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-7" value="used only to&amp;nbsp;&lt;div&gt;extract text&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="-64" y="352" width="86" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-8" value="used to get productivity scores" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="-69" y="496" width="180" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-10" value="&lt;div&gt;- screenshot best practices computer use&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="-182" y="-4.5" width="108" height="113" as="geometry" />
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-14" value="Manual data from us" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-365" y="22" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-15" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.007;entryY=0.567;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="SDC2UrADh2dyTHGClG3e-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-245" y="57" as="sourcePoint" />
+            <mxPoint x="-109" y="57" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-16" value="Fine tuning of vision model with unsloth notebook" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-188" y="151" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-17" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SDC2UrADh2dyTHGClG3e-10" target="SDC2UrADh2dyTHGClG3e-16">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-132" y="108.5" as="sourcePoint" />
+            <mxPoint x="-130" y="151" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-19" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.387;entryY=0.005;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="dn49l2DXKdN8Z0686AND-25">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-128.5" y="209" as="sourcePoint" />
+            <mxPoint x="-128.5" y="251" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
