@@ -34,7 +34,7 @@ class QueryCommander:
         factory_obj = ModelFactory.create_model_factory(model_family=model_family)
         history = self.query_history.get_history()
         if 'images' in query:
-            query_obj = factory_obj.create_vision_query(images=query['images'], history=history)
+            query_obj = factory_obj.create_vision_query(images=query['images'], history=history, model_name='llava')
         else:
             query_obj = factory_obj.create_text_query(history=history)
         
