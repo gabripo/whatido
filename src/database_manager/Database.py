@@ -1,8 +1,8 @@
 import os, asyncio, json, shutil
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
 # Singleton Pattern
-class Database:
+class Database(ABC):
     _instance = None
 
     def __new__(cls, name: str = "db", path: str = None, *args, **kwargs):

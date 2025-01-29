@@ -1,11 +1,11 @@
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
-class ModelQuery:
+class ModelQuery(ABC):
     @abstractmethod
     def query(self, *args, **kwargs):
         pass
 
-class ModelQueryFactory:
+class ModelQueryFactory(ABC):
     @staticmethod
     @abstractmethod
     def create_text_query(*args, **kwargs) -> ModelQuery:
