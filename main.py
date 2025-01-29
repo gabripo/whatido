@@ -9,6 +9,7 @@ ANALYZE_SCREEN = False
 ANALYZE_ASSETS = False
 TEST_TEXT_QUERY = False
 GENERATE_EMAILS = False
+TRAIN_EMAILS_MODEL = False
 
 if __name__ == "__main__":
     history = QueryHistory()
@@ -54,12 +55,12 @@ if __name__ == "__main__":
         de.print()
 
     sft = SupervisedFineTraining()
-    dataset_path = 'database/gen_emails.json'
-    dataset = TrainingDataset(dataset_path, sft.tokenizer)
-    sft.load_dataset(dataset)
-    sft.train(num_epochs=10)
-    sft.save()
-    sft.print_training_characteristics()
-
+    if TRAIN_EMAILS_MODEL:
+        dataset_path = 'database/gen_emails.json'
+        dataset = TrainingDataset(dataset_path, sft.tokenizer)
+        sft.load_dataset(dataset)
+        sft.train(num_epochs=10)
+        sft.save()
+        sft.print_training_characteristics()
     infered_score = sft.infer("Subject: Sorry\nObject: I am sorry. I cannot speak German.")
     print(infered_score)
