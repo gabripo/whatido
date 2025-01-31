@@ -2,6 +2,7 @@ import os
 from src.chat_handler.Query import QueryHistory, QueryCommander, QueryHandler
 from src.screenshots_manager.Screenshot import ScreenshotManager
 from src.database_manager.Emails import DatabaseEmails, QueryScorePair
+from src.database_manager.Employees import EmployeesDatabase
 from src.fine_tuning.TrainingDataset import TrainingDataset
 from src.fine_tuning.SFT import SupervisedFineTraining
 from src.Economics.Productivity_scores import get_efficiency_scores	
@@ -67,3 +68,6 @@ if __name__ == "__main__":
         sft.print_training_characteristics()
     infered_score = sft.infer("Subject: Sorry\nObject: I am sorry. I cannot speak German.")
     print(infered_score)
+
+    demp = EmployeesDatabase('employee_data')
+    demp.print()
