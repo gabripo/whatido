@@ -1,0 +1,22 @@
+{
+    "employees": [
+        {
+            "name": "John Doe",
+            "emails_sent": 100,
+            "code_commits": 50,
+            "documents_submitted": 30,
+            "customer_meeting_hours": 10,
+            "unit_cost": 20,
+            "hours_worked": 40
+        },
+        {
+            "name": "Jane Smith",
+            "emails_sent": 80,
+            "code_commits": 40,
+            "documents_submitted": 20,
+            "customer_meeting_hours": 5,
+            "unit_cost": 25,
+            "hours_worked": 35
+        }
+    ]
+}

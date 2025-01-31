@@ -4,6 +4,9 @@ from src.screenshots_manager.Screenshot import ScreenshotManager
 from src.database_manager.Emails import DatabaseEmails, QueryScorePair
 from src.fine_tuning.TrainingDataset import TrainingDataset
 from src.fine_tuning.SFT import SupervisedFineTraining
+from src.Economics.Productivity_scores import get_efficiency_scores	
+	# Call the function to get the efficiency scores
+p_s = get_efficiency_scores()
 
 ANALYZE_SCREEN = False
 ANALYZE_ASSETS = False
