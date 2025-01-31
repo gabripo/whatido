@@ -1,0 +1,38 @@
+[
+    {
+        "image": "screenshots/test1_1.png",
+        "productivity_scores": {
+            "emails_sent": 100,
+            "code_commits": null,
+            "documents_submitted": 30,
+            "customer_meeting_hours": null
+        }
+    },
+    {
+        "image": "screenshots/test1_2.png",
+        "productivity_scores": {
+            "emails_sent": null,
+            "code_commits": 50,
+            "documents_submitted": null,
+            "customer_meeting_hours": 10
+        }
+    },
+    {
+        "image": "screenshots/test2_1.png",
+        "productivity_scores": {
+            "emails_sent": 1,
+            "code_commits": 50,
+            "documents_submitted": 30,
+            "customer_meeting_hours": null
+        }
+    },
+    {
+        "image": "screenshots/test2_2.png",
+        "productivity_scores": {
+            "emails_sent": null,
+            "code_commits": null,
+            "documents_submitted": null,
+            "customer_meeting_hours": 1000
+        }
+    }
+]
