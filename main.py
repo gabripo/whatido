@@ -9,7 +9,7 @@ from src.fine_tuning.SFT import SupervisedFineTraining
 from src.fine_tuning.LORA import LORA
 # from src.Economics.Productivity_scores import get_efficiency_scores	
 	# Call the function to get the efficiency scores
-p_s = get_efficiency_scores()
+# p_s = get_efficiency_scores()
 
 ANALYZE_SCREEN = False
 ANALYZE_ASSETS = False
