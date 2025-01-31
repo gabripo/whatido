@@ -1,0 +1,130 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" version="26.0.10">
+  <diagram name="Page-1" id="Xd_v0qLZILoLZXpPPBsT">
+    <mxGraphModel dx="1994" dy="1155" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SDC2UrADh2dyTHGClG3e-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="dn49l2DXKdN8Z0686AND-2" target="SDC2UrADh2dyTHGClG3e-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-2" value="Download from internet video best performers (youtube tutorials, world championships..) (1)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-290.25" y="-146" width="158.5" height="77" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-4" value="&lt;div&gt;images of e-mails&lt;/div&gt;&lt;div&gt;+&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;sensitivity scores in json (4)&lt;/span&gt;&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
+          <mxGeometry x="-91" y="-4.5" width="108" height="113" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-17" value="&lt;div&gt;database&lt;/div&gt;&lt;div&gt;(profile of employees with sensitivity and productivity analysis)&lt;br&gt;&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
+          <mxGeometry x="146" y="351.25" width="106" height="176.5" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-25" value="&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;fine tuned Vision model&lt;/span&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-164" y="329.5" width="90" height="242.5" as="geometry" />
+        </mxCell>
+        <mxCell id="dn49l2DXKdN8Z0686AND-26" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=1.018;entryY=1.018;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="SDC2UrADh2dyTHGClG3e-8" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-74" y="438.565" as="sourcePoint" />
+            <mxPoint x="111" y="440" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-11" y="440.44" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-2" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.033;entryY=0.619;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-243.97" y="440.2" as="sourcePoint" />
+            <mxPoint x="-163.99999999999997" y="438.80750000000006" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-8" value="used to get productivity and sensitivity&amp;nbsp;&lt;div&gt;scores for employee X&amp;nbsp;&lt;/div&gt;&lt;div&gt;who is running the model&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="-79" y="386" width="223" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-10" value="&lt;div&gt;get frames from video + productivity scores in&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;json&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;(3)&lt;/span&gt;&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
+          <mxGeometry x="-265" y="-4.5" width="108" height="113" as="geometry" />
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-14" value="Recorded videos from best performers (with high productivity score)" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-476" y="27" width="148" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-15" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.007;entryY=0.567;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="SDC2UrADh2dyTHGClG3e-10" edge="1" source="SDC2UrADh2dyTHGClG3e-14">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-328" y="57" as="sourcePoint" />
+            <mxPoint x="-192" y="57" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-16" value="Fine tuning of vision model with unsloth notebook (6)&lt;div&gt;and hugging face data set (7)&amp;nbsp;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-211" y="154" width="166" height="69" as="geometry" />
+        </mxCell>
+        <mxCell id="SDC2UrADh2dyTHGClG3e-19" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;entryX=0.387;entryY=0.005;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" target="dn49l2DXKdN8Z0686AND-25" edge="1" source="SDC2UrADh2dyTHGClG3e-16">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-129" y="225" as="sourcePoint" />
+            <mxPoint x="-128.5" y="251" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-2" value="Recorded screen of employee (email and general applications)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-384" y="404" width="139" height="71" as="geometry" />
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-3" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-plus-round-128.png" vertex="1" parent="1">
+          <mxGeometry x="-142" y="36.5" width="31" height="31" as="geometry" />
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-4" value="AI generated email&lt;div&gt;with structured output (2)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-117" y="-146" width="158.5" height="77" as="geometry" />
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-37.5" y="-69" as="sourcePoint" />
+            <mxPoint x="-37.5" y="-4" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-8" value="Recorded videos from best emails written (with high sensitivity score)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="73" y="19.5" width="148" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-9" value="" style="endArrow=classic;html=1;rounded=0;fontSize=12;startSize=8;endSize=8;curved=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="dSjhjYuu-gYZqbs7H0g3-8" target="dn49l2DXKdN8Z0686AND-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="66" y="55" as="sourcePoint" />
+            <mxPoint x="17" y="55" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-13" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-211" y="128" as="sourcePoint" />
+            <mxPoint x="-211" y="108.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-14" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-33" y="128" as="sourcePoint" />
+            <mxPoint x="-33" y="108.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-15" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-212" y="129" as="sourcePoint" />
+            <mxPoint x="-33" y="129" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-127" y="129" as="sourcePoint" />
+            <mxPoint x="-127" y="156" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-18" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;(5)&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-135" y="99" width="22" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-19" value="" style="endArrow=classic;html=1;rounded=0;shadow=1;flowAnimation=0;strokeColor=#CCCCCC;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="198" y="356.25" as="sourcePoint" />
+            <mxPoint x="161" y="91" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-20" value="" style="endArrow=classic;html=1;rounded=0;shadow=1;strokeColor=#CCCCCC;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="198" y="353.75" as="sourcePoint" />
+            <mxPoint x="-392" y="98" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dSjhjYuu-gYZqbs7H0g3-22" value="&lt;div&gt;&lt;font style=&quot;color: rgb(204, 204, 204);&quot;&gt;Take best performers with &amp;gt; n score&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(204, 204, 204);&quot;&gt;and use their video&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(204, 204, 204);&quot;&gt;for new set of training data&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(204, 204, 204);&quot;&gt;(8)&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="236" width="208" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
