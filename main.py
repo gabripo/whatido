@@ -45,8 +45,8 @@ if __name__ == "__main__":
         history.print_history()
         history.clear_history()
 
+    de = DatabaseEmails('gen_emails')
     if GENERATE_EMAILS:
-        de = DatabaseEmails('gen_emails')
         queries = [
             QueryScorePair('write an aggressive e-mail', [10, 10, 0, 10, 0]),
             QueryScorePair('write an e-mail explaining low-pass filtering', [10, 3, 10, 0, 2]),
@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
     sft = SupervisedFineTraining()
     if TRAIN_EMAILS_MODEL:
-        dataset_path = 'database/gen_emails.json'
+        dataset_path = de.get_database_abspath()
         dataset = TrainingDataset(dataset_path, sft.tokenizer)
         sft.load_dataset(dataset)
         sft.train(num_epochs=10)

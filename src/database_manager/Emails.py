@@ -31,6 +31,9 @@ class DatabaseEmails(Database):
 
     def create_folder(self) -> None:
         return super().create_folder()
+    
+    def get_database_abspath(self):
+        return super().get_database_abspath()
 
     def build(self, queries: list[QueryScorePair] = DEFAULT_QUERIES, num_emails_to_gen: int = DEFAULT_NUM_EMAILS_TO_GEN_PER_QUERY):
         self.queries = queries

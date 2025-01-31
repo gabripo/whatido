@@ -35,6 +35,14 @@ class Database(ABC):
             print(f"Folder {self.database_path} already exists!\n")
 
     @abstractmethod
+    def get_database_abspath(self) -> str:
+        return os.path.abspath(os.path.join(
+            os.getcwd(),
+            self.database_path,
+            self.database_name + '.json',
+        ))
+
+    @abstractmethod
     def build(self):
         pass
 
