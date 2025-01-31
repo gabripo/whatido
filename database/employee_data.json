@@ -2,21 +2,49 @@
     "employees": [
         {
             "name": "John Doe",
-            "emails_sent": 100,
-            "code_commits": 50,
-            "documents_submitted": 30,
-            "customer_meeting_hours": 10,
-            "unit_cost": 20,
-            "hours_worked": 40
+            "productivity": {
+                "productivity_scores": {
+                    "emails_sent": 100,
+                    "code_commits": 50,
+                    "documents_submitted": 30,
+                    "customer_meeting_hours": 10,
+                    "unit_cost": 20,
+                    "hours_worked": 40
+                },
+                "employee_productivity_score": -1
+            },
+            "sensitivity": {
+                "employee_sensitivity_scores": {
+                    "english_proficiency": 10,
+                    "clarity": 3,
+                    "technical_depth": 10,
+                    "aggressivity": 0,
+                    "empathy": 2
+                }
+            }
         },
         {
             "name": "Jane Smith",
-            "emails_sent": 80,
-            "code_commits": 40,
-            "documents_submitted": 20,
-            "customer_meeting_hours": 5,
-            "unit_cost": 25,
-            "hours_worked": 35
+            "productivity": {
+                "productivity_scores": {
+                    "emails_sent": 100,
+                    "code_commits": 50,
+                    "documents_submitted": 30,
+                    "customer_meeting_hours": 10,
+                    "unit_cost": 20,
+                    "hours_worked": 40
+                },
+                "employee_productivity_score": -1
+            },
+            "sensitivity": {
+                "employee_sensitivity_scores": {
+                    "english_proficiency": 10,
+                    "clarity": 3,
+                    "technical_depth": 10,
+                    "aggressivity": 0,
+                    "empathy": 2
+                }
+            }
         }
     ]
 }

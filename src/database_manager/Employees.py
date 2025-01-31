@@ -12,7 +12,11 @@ class EmployeesDatabase(Database):
         return super().get_database_abspath()
     
     def build(self):
-        return super().build()
+        super().build()
+        self._compute_profitability()
+
+    def _compute_profitability(self):
+        pass
     
     def store(self):
         return super().store()
