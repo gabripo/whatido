@@ -1,26 +1,11 @@
 import os
-from src.database_manager.Emails import DatabaseEmails
 # from src.database_manager.Employees import EmployeesDatabase
 # from src.database_manager.ActivityScreeenshots import ScreenshotsDatabase
 from src.fine_tuning.TrainingDataset import TrainingDataset
-from src.fine_tuning.SFT import SupervisedFineTraining
 # from src.fine_tuning.LORA import LORA
 
-TRAIN_EMAILS_MODEL = False
-
 if __name__ == "__main__":
-    db_emails = DatabaseEmails('gen_emails')
-    sft = SupervisedFineTraining()
-    if TRAIN_EMAILS_MODEL:
-        dataset_path = db_emails.get_database_abspath()
-        dataset = TrainingDataset(dataset_path, sft.tokenizer)
-        sft.load_dataset(dataset)
-        sft.train(num_epochs=10)
-        sft.save()
-        sft.print_training_characteristics()
-    infered_score = sft.infer("Subject: Sorry\nObject: I am sorry. I cannot speak German.")
-    print(infered_score)
-
+    pass
     # ds = ScreenshotsDatabase('screenshots')
     # # TODO generate / entry database
     # ds.build()

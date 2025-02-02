@@ -2,9 +2,12 @@ from sklearn.model_selection import train_test_split
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch, os
 from torch.utils.data import DataLoader
-from .FineTraining import FineTraining
-from .TrainingDataset import TrainingDataset, TOKENIZER_MAX_LENGTH
-from ..datatypes.Score import MAX_SCORE, MIN_SCORE, Score
+
+import _setup_test_env
+from database_manager.Emails import DatabaseEmails
+from fine_tuning.FineTraining import FineTraining
+from fine_tuning.TrainingDataset import TrainingDataset, TOKENIZER_MAX_LENGTH
+from datatypes.Score import MAX_SCORE, MIN_SCORE, Score
 
 DEFAULT_MODEL_NAME = "bert-base-uncased"
 DEFAULT_TOKENIZER_NAME = "auto-tokenizer"
@@ -293,3 +296,18 @@ class SupervisedFineTraining(FineTraining):
             print(f"Loss (test): {self.loss['test']}")
             print(f"Tuned model: {self.tuned_model_name}")
         
+
+if __name__ == '__main__':
+    TRAIN_EMAILS_MODEL = False
+
+    db_emails = DatabaseEmails('gen_emails')
+    sft = SupervisedFineTraining()
+    if TRAIN_EMAILS_MODEL:
+        dataset_path = db_emails.get_database_abspath()
+        dataset = TrainingDataset(dataset_path, sft.tokenizer)
+        sft.load_dataset(dataset)
+        sft.train(num_epochs=10)
+        sft.save()
+        sft.print_training_characteristics()
+    infered_score = sft.infer("Subject: Sorry\nObject: I am sorry. I cannot speak German.")
+    print(infered_score)
