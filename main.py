@@ -1,6 +1,12 @@
 from src.fine_tuning.TrainingDatasetHF import TrainingDatasetHF
 from src.models_interfaces.HFModel import HFModel
 
+try:
+    from src.models_interfaces.Unsloth import UnslothVisionModel
+    UNSLOTH_SUPPORTED = True
+except:
+    UNSLOTH_SUPPORTED = False
+
 if __name__ == "__main__":
     dataset = TrainingDatasetHF("SecchiAlessandro/dataset-email-screenshots", split="train")
 
@@ -9,8 +15,13 @@ if __name__ == "__main__":
     # print(dataset.dataset[0]) # debug print
     # print(dataset.converted_dataset[0]) # debug print
 
-    model = HFModel(
-        model_name="gabripo/lora_model_productivity_vision",
-        base_model_name="unsloth/llama-3.2-11b-vision-instruct-unsloth-bnb-4bit",
-        )
-    model.get_hf_model(local_save=True)
+    if UNSLOTH_SUPPORTED:
+        model = UnslothVisionModel(
+            model_name="gabripo/lora_model_productivity_vision",
+            )
+    else:
+        model = HFModel(
+            model_name="gabripo/lora_model_productivity_vision",
+            base_model_name="unsloth/llama-3.2-11b-vision-instruct-unsloth-bnb-4bit",
+            )
+        model.get_hf_model(local_save=True)
