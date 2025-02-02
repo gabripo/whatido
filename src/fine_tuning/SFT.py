@@ -16,7 +16,7 @@ DEFAULT_NUM_EPOCHS = 1
 MAX_SCORE_NORMALIZED = 1
 MIN_SCORE_NORMALIZED = 0
 
-class SupervisedFineTraining(FineTraining):
+class SupervisedFineTrainingPytorch(FineTraining):
     def __init__(self, model_name: str = DEFAULT_MODEL_NAME, tokenizer_name: str = DEFAULT_TOKENIZER_NAME, optimizer_name: str = DEFAULT_OPTIMIZER_NAME, split_size: float = 0.2, random_state: int = 1):
         self.model_name = model_name
         self.tokenizer_name = tokenizer_name
@@ -301,7 +301,7 @@ if __name__ == '__main__':
     TRAIN_EMAILS_MODEL = False
 
     db_emails = DatabaseEmails('gen_emails')
-    sft = SupervisedFineTraining()
+    sft = SupervisedFineTrainingPytorch()
     if TRAIN_EMAILS_MODEL:
         dataset_path = db_emails.get_database_abspath()
         dataset = TrainingDatasetPytorch(dataset_path, sft.tokenizer)
