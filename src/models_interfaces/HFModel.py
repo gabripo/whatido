@@ -13,7 +13,7 @@ class HFModel:
         self.model_local_path = None
 
     def get_hf_model(self, local_save: bool = False):
-        if self.model_name is None or self.base_model_name is None:
+        if self.model_name is None:
             print(f"Invalid base or derived model name!")
             return
         
@@ -24,18 +24,20 @@ class HFModel:
             bnb_4bit_use_double_quant=True,
         )
 
-        self.base_model = AutoModelForCausalLM.from_pretrained(
-            self.base_model_name,
-            quantization_config=quant_config,
-            device_map="auto",  # Automatically distribute layers across devices
-            trust_remote_code=True,  # Required for custom models
-            # token=True,  # Needed for private models
-            )
+        if self.base_model_name is not None:
+            self.base_model = AutoModelForCausalLM.from_pretrained(
+                self.base_model_name,
+                quantization_config=quant_config,
+                device_map="auto",  # Automatically distribute layers across devices
+                trust_remote_code=True,  # Required for custom models
+                # token=True,  # Needed for private models
+                )
         self.model = PeftModel.from_pretrained(self.base_model, self.model_name)
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         
         if local_save:
             self.model_local_path = os.path.abspath(os.getcwd(), self.model_name)
-            self.base_model.save_pretrained(self.model_local_path)
+            if self.base_model_name is not None:
+                self.base_model.save_pretrained(self.model_local_path)
             self.model.save_pretrained(self.model_local_path)
             self.tokenizer.save_pretrained(self.model_local_path)

@@ -10,7 +10,7 @@ if __name__ == "__main__":
     # print(dataset.converted_dataset[0]) # debug print
 
     model = HFModel(
-        "unsloth/llama-3.2-11b-vision-instruct-unsloth-bnb-4bit",
-        "gabripo/lora_model_productivity_vision"
+        model_name="gabripo/lora_model_productivity_vision",
+        base_model_name="unsloth/llama-3.2-11b-vision-instruct-unsloth-bnb-4bit",
         )
     model.get_hf_model(local_save=True)
