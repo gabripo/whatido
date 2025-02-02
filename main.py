@@ -1,27 +1,8 @@
-import os
-# from src.database_manager.Employees import EmployeesDatabase
-# from src.database_manager.ActivityScreeenshots import ScreenshotsDatabase
-from src.fine_tuning.TrainingDataset import TrainingDataset
-# from src.fine_tuning.LORA import LORA
+from src.fine_tuning.TrainingDatasetHF import TrainingDatasetHF
 
 if __name__ == "__main__":
-    pass
-    # ds = ScreenshotsDatabase('screenshots')
-    # # TODO generate / entry database
-    # ds.build()
-    # ds.print()
+    dataset = TrainingDatasetHF("SecchiAlessandro/dataset-email-screenshots", split="train")
 
-    # lora = LORA("llava-llama3")
-    # dataset = TrainingDataset(ds.get_database_abspath())
-    # lora.load_dataset(dataset)
-    # # TODO fine-tuning of model
-    # lora.train()
-    # lora.save()
-    # lora.print_training_characteristics()
-    # # TODO create a valid input for inference
-    # img_path = os.path.abspath(os.path.join(os.getcwd(), 'screenshots', 'test.png'))
-    # infered_score = lora.infer(img_path)
-    # print(infered_score)
-
-    # demp = EmployeesDatabase('employee_data')
-    # demp.print()
+    instruction = "You are an expert corporate manager. Make a sensitivity analysis of what you see in this image and give some advices on how to improve."
+    dataset.convert_to_conversation(conversion_instruction=instruction)
+    print(dataset.converted_dataset[0]) # debug print
