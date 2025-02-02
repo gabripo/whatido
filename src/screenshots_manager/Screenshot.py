@@ -48,10 +48,15 @@ class ScreenshotManager:
         return screenshot
     
     def capture_screenshots_for_duration_s(self, duration_s: float = 1.0, interval_s: float = 0.5):
+        # TODO find a more reliable way to perform screenshots given the time
         start_time = time.time()
         while (time.time() - start_time) < duration_s:
             self.capture_screenshot()
             time.sleep(interval_s)
+
+    @classmethod
+    def reset(cls):
+        cls._instance = None
     
 if __name__ == "__main__":
     manager = ScreenshotManager()

@@ -1,4 +1,4 @@
 env
 __pycache__/
-screenshots/
+tests/screenshots/
 bert-base-uncased_fine_tuned/

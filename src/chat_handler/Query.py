@@ -26,6 +26,10 @@ class QueryHistory:
             print(f"role : {query["role"]}")
             print(f"content : {query["content"]}")
 
+    @classmethod
+    def reset(cls):
+        cls._instance = None
+
 # Command Pattern
 class QueryCommander:
     def __init__(self, query_history: QueryHistory):
