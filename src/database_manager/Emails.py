@@ -117,3 +117,16 @@ class DatabaseEmails(Database):
                 data = json.load(json_file)
             return len(data)
         return 0
+    
+if __name__ == '__main__':
+    db_emails = DatabaseEmails('gen_emails')
+    queries = [
+        QueryScorePair('write an aggressive e-mail', [10, 10, 0, 10, 0]),
+        QueryScorePair('write an e-mail explaining low-pass filtering', [10, 3, 10, 0, 2]),
+        QueryScorePair('write an e-mail explaining the usage of epoustoflant in French with an example', [6, 10, 0, 0, 7]),
+        QueryScorePair('scrivi una e-mail scusandoti di un evento grave accaduto in azienda in Italiano', [0, 9, 0, 0, 10]),
+        QueryScorePair('schreib eine aggressive E-Mail auf Deutsch',[0, 10, 0, 10, 0]),
+        ]
+    num_emails_per_query = 20
+    db_emails.build(queries, num_emails_to_gen=num_emails_per_query)
+    db_emails.print()
