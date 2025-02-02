@@ -5,9 +5,6 @@ from src.database_manager.ActivityScreeenshots import ScreenshotsDatabase
 from src.fine_tuning.TrainingDataset import TrainingDataset
 from src.fine_tuning.SFT import SupervisedFineTraining
 from src.fine_tuning.LORA import LORA
-# from src.Economics.Productivity_scores import get_efficiency_scores	
-	# Call the function to get the efficiency scores
-# p_s = get_efficiency_scores()
 
 GENERATE_EMAILS = False
 TRAIN_EMAILS_MODEL = False
