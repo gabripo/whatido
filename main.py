@@ -25,3 +25,5 @@ if __name__ == "__main__":
             base_model_name="unsloth/llama-3.2-11b-vision-instruct-unsloth-bnb-4bit",
             )
         model.get_hf_model(local_save=True)
+    model.enable_inference()
+    # TODO implement inference pipeline
