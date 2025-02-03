@@ -25,10 +25,12 @@ class HFModel:
             print(f"Invalid base or derived model name!")
             return
 
-        self.set_quantization_config()
+        
         self.set_model_load_config()
 
         if self.is_model_peft():
+            self.set_quantization_config()
+
             self.base_model = AutoModelForCausalLM.from_pretrained(
                 self.base_model_name,
                 **self.model_load_config,
@@ -63,6 +65,8 @@ class HFModel:
             bnb_4bit_use_double_quant=bnb_4bit_use_double_quant,
             **kwargs
         )
+        if self.quant_config is not None:
+            self.model_load_config['quantization_config'] = self.quant_config
 
     def set_model_load_config(
             self,
@@ -77,9 +81,6 @@ class HFModel:
             'token': token,
             **kwargs
         }
-
-        if self.quant_config is not None:
-            self.model_load_config['quantization_config'] = self.quant_config
 
     def is_model_peft(self):
         return self.base_model_name is not None
