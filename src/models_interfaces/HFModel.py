@@ -4,15 +4,21 @@ from transformers import BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer
 import torch
 
 class HFModel:
-    def __init__(self, model_name: str = None, base_model_name: str = None):
+    def __init__(
+            self,
+            model_name: str = None,
+            base_model_name: str = None,
+            model_load_config: dict = None,
+            quant_config: BitsAndBytesConfig = None
+            ):
         self.model_name = model_name
         self.base_model_name = base_model_name
+        self.model_load_config = model_load_config
+        self.quant_config = quant_config
         self.model = None
         self.base_model = None
         self.tokenizer = None
         self.model_local_path = None
-        self.model_load_config = None
-        self.quant_config = None
 
     def get_hf_model(self, local_save: bool = False):
         if self.model_name is None:
