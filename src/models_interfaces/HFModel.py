@@ -32,12 +32,20 @@ class HFModel:
                 trust_remote_code=True,  # Required for custom models
                 # token=True,  # Needed for private models
                 )
-        self.model = PeftModel.from_pretrained(self.base_model, self.model_name)
+            self.model = PeftModel.from_pretrained(self.base_model, self.model_name)
+        else:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                self.base_model_name,
+                quantization_config=quant_config,
+                device_map="auto",  # Automatically distribute layers across devices
+                trust_remote_code=True,  # Required for custom models
+                # token=True,  # Needed for private models
+                )
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         
         if local_save:
             self.model_local_path = os.path.abspath(os.getcwd(), self.model_name)
-            if self.base_model_name is not None:
+            if self.base_model is not None:
                 self.base_model.save_pretrained(self.model_local_path)
             self.model.save_pretrained(self.model_local_path)
             self.tokenizer.save_pretrained(self.model_local_path)
