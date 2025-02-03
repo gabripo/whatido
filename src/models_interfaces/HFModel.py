@@ -28,7 +28,7 @@ class HFModel:
         self.set_quantization_config()
         self.set_model_load_config()
 
-        if self.base_model_name is not None:
+        if self.is_model_peft():
             self.base_model = AutoModelForCausalLM.from_pretrained(
                 self.base_model_name,
                 **self.model_load_config,
@@ -43,7 +43,7 @@ class HFModel:
         
         if local_save:
             self.model_local_path = os.path.abspath(os.getcwd(), self.model_name)
-            if self.base_model is not None:
+            if self.is_model_peft():
                 self.base_model.save_pretrained(self.model_local_path)
             self.model.save_pretrained(self.model_local_path)
             self.tokenizer.save_pretrained(self.model_local_path)
@@ -80,3 +80,6 @@ class HFModel:
 
         if self.quant_config is not None:
             self.model_load_config['quantization_config'] = self.quant_config
+
+    def is_model_peft(self):
+        return self.base_model_name is not None
