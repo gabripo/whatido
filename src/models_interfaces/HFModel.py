@@ -11,35 +11,27 @@ class HFModel:
         self.base_model = None
         self.tokenizer = None
         self.model_local_path = None
+        self.model_load_config = None
+        self.quant_config = None
 
     def get_hf_model(self, local_save: bool = False):
         if self.model_name is None:
             print(f"Invalid base or derived model name!")
             return
-        
-        quant_config = BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_quant_type="nf4",
-            bnb_4bit_compute_dtype=torch.float16,
-            bnb_4bit_use_double_quant=True,
-        )
+
+        self.set_quantization_config()
+        self.set_model_load_config()
 
         if self.base_model_name is not None:
             self.base_model = AutoModelForCausalLM.from_pretrained(
                 self.base_model_name,
-                quantization_config=quant_config,
-                device_map="auto",  # Automatically distribute layers across devices
-                trust_remote_code=True,  # Required for custom models
-                # token=True,  # Needed for private models
+                **self.model_load_config,
                 )
             self.model = PeftModel.from_pretrained(self.base_model, self.model_name)
         else:
             self.model = AutoModelForCausalLM.from_pretrained(
                 self.base_model_name,
-                quantization_config=quant_config,
-                device_map="auto",  # Automatically distribute layers across devices
-                trust_remote_code=True,  # Required for custom models
-                # token=True,  # Needed for private models
+                **self.model_load_config,
                 )
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         
@@ -49,3 +41,36 @@ class HFModel:
                 self.base_model.save_pretrained(self.model_local_path)
             self.model.save_pretrained(self.model_local_path)
             self.tokenizer.save_pretrained(self.model_local_path)
+
+    def set_quantization_config(
+            self,
+            load_in_4_bit: bool = True,
+            bnb_4bit_quant_type: str ="nf4",
+            bnb_4bit_compute_dtype: type =torch.float16,
+            bnb_4bit_use_double_quant: bool =True,
+            **kwargs
+            ):
+        self.quant_config = BitsAndBytesConfig(
+            load_in_4bit=load_in_4_bit,
+            bnb_4bit_quant_type=bnb_4bit_quant_type,
+            bnb_4bit_compute_dtype=bnb_4bit_compute_dtype,
+            bnb_4bit_use_double_quant=bnb_4bit_use_double_quant,
+            **kwargs
+        )
+
+    def set_model_load_config(
+            self,
+            device_map: str = "auto",
+            trust_remote_code: bool = True,
+            token: bool = False,
+            **kwargs
+            ):
+        self.model_load_config = {
+            'device_map': device_map,
+            'trust_remote_code': trust_remote_code,
+            'token': token,
+            **kwargs
+        }
+
+        if self.quant_config is not None:
+            self.model_load_config['quantization_config'] = self.quant_config
