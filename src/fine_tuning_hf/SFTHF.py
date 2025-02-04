@@ -4,6 +4,9 @@ class SupervisedFineTuningHF(FineTuningHF):
     def __init__(self):
         super().__init__()
 
+    def load_dataset(self, dataset):
+        return super().load_dataset(dataset)
+
     def train(self):
         return super().train()
     
