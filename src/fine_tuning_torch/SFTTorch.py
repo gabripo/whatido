@@ -3,7 +3,6 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch, os
 from torch.utils.data import DataLoader
 
-import _setup_test_env
 from src.database_manager.Emails import DatabaseEmails
 from src.fine_tuning_torch.FineTuningTorch import FineTuningTorch
 from src.fine_tuning_torch.TrainingDatasetTorch import TrainingDatasetTorch, TOKENIZER_MAX_LENGTH
@@ -298,6 +297,7 @@ class SupervisedFineTuningTorch(FineTuningTorch):
         
 
 if __name__ == '__main__':
+    import _setup_test_env
     TRAIN_EMAILS_MODEL = False
 
     db_emails = DatabaseEmails('gen_emails')

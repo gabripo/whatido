@@ -1,5 +1,4 @@
 import asyncio, os, json, re
-import _setup_test_env
 from src.database_manager.Database import Database
 from src.models_interfaces.ModelFactory import ModelFactory
 from src.datatypes.Score import Score
@@ -120,6 +119,7 @@ class DatabaseEmails(Database):
         return 0
     
 if __name__ == '__main__':
+    import _setup_test_env
     db_emails = DatabaseEmails('gen_emails')
     queries = [
         QueryScorePair('write an aggressive e-mail', [10, 10, 0, 10, 0]),

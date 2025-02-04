@@ -1,4 +1,3 @@
-import _setup_test_env
 from unsloth import FastVisionModel
 from .ModelHF import ModelHF
 
@@ -87,6 +86,8 @@ class UnslothVisionModel(ModelHF):
         return True
 
 if __name__ == "__main__":
+    import _setup_test_env
+    
     model = UnslothVisionModel(
             model_name="gabripo/lora_model_productivity_vision",
             )
