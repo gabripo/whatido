@@ -1,3 +1,4 @@
+import _setup_test_env
 from unsloth import FastVisionModel
 from .ModelHF import ModelHF
 
@@ -84,3 +85,9 @@ class UnslothVisionModel(ModelHF):
             print(f"Model not available for {self.__class__.__name__}!")
             return False
         return True
+
+if __name__ == "__main__":
+    model = UnslothVisionModel(
+            model_name="gabripo/lora_model_productivity_vision",
+            )
+    model.enable_inference()
