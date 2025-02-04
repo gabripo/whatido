@@ -1,9 +1,9 @@
 import asyncio, os, json, re
 import _setup_test_env
-from database_manager.Database import Database
-from models_interfaces.ModelFactory import ModelFactory
-from datatypes.Score import Score
-from datatypes.Response import EmailResponse
+from src.database_manager.Database import Database
+from src.models_interfaces.ModelFactory import ModelFactory
+from src.datatypes.Score import Score
+from src.datatypes.Response import EmailResponse
 
 DEFAULT_QUERIES = ['generate an e-mail']
 DEFAULT_NUM_EMAILS_TO_GEN_PER_QUERY = 10

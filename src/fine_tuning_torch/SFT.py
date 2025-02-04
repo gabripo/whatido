@@ -4,10 +4,10 @@ import torch, os
 from torch.utils.data import DataLoader
 
 import _setup_test_env
-from database_manager.Emails import DatabaseEmails
+from src.database_manager.Emails import DatabaseEmails
 from src.fine_tuning_torch.FineTuning import FineTuning
 from src.fine_tuning_torch.TrainingDatasetTorch import TrainingDatasetTorch, TOKENIZER_MAX_LENGTH
-from datatypes.Score import MAX_SCORE, MIN_SCORE, Score
+from src.datatypes.Score import MAX_SCORE, MIN_SCORE, Score
 
 DEFAULT_MODEL_NAME = "bert-base-uncased"
 DEFAULT_TOKENIZER_NAME = "auto-tokenizer"
