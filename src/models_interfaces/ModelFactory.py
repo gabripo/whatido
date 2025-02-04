@@ -1,4 +1,4 @@
-from .Model import ModelQueryFactory
+from .ModelQuery import ModelQueryFactory
 from .Llama import LlamaQueryFactory
 
 class ModelFactory:

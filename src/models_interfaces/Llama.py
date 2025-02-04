@@ -1,5 +1,5 @@
 import ollama
-from .Model import ModelQuery, ModelQueryFactory
+from .ModelQuery import ModelQuery, ModelQueryFactory
 
 class LlamaQuery(ModelQuery):
     def __init__(
