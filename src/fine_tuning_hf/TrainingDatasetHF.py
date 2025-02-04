@@ -9,6 +9,7 @@ class TrainingDatasetHF(datasets.Dataset):
             print(f"Dataset load {hg_repo_id} failed: {exc}")
             self.dataset = None
         self.converted_dataset = None
+        self.name = hg_repo_id
 
     def convert_to_conversation(self, conversion_instruction: str = ""):
         if not self.dataset:
@@ -26,17 +27,24 @@ class TrainingDatasetHF(datasets.Dataset):
     @staticmethod
     def _convert_to_conversation_sample(sample, conversion_instruction: str = ""):
         conversation = [
-            { "role": "user",
-            "content" : [
-                {"type" : "text",  "text"  : conversion_instruction},
-                {"type" : "image", "image" : sample["image"]} ]
+            {
+                "role": "user",
+                "content" : [
+                    {"type" : "text",  "text"  : conversion_instruction},
+                    {"type" : "image"}
+                ]
             },
-            { "role" : "assistant",
-            "content" : [
-                {"type" : "text",  "text"  : sample["metrics"]} ]
+            {
+                "role" : "assistant",
+                "content" : [
+                    {"type" : "text",  "text"  : str(sample['metrics'])} # cast sample['metrics'] as a string TODO make it a structured output
+                ]
             },
         ]
-        return { "messages" : conversation }
+        return {
+            "messages" : conversation,
+            "images": sample["image"],
+            }
     
 if __name__ == "__main__":
     dataset = TrainingDatasetHF("SecchiAlessandro/dataset-email-screenshots", split="train")
