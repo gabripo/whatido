@@ -1,4 +1,4 @@
-from src.fine_tuning.TrainingDatasetHF import TrainingDatasetHF
+from src.fine_tuning_hf.TrainingDatasetHF import TrainingDatasetHF
 from src.models_interfaces.HFModel import HFModel
 
 try:
