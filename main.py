@@ -17,3 +17,4 @@ if __name__ == "__main__":
     # print(sft.processor.apply_chat_template(sft.train_data[0]['messages'], tokenize=False))
     sft.set_trainer()
     sft.train()
+    sft.save()
