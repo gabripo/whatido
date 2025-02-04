@@ -1,8 +1,8 @@
-from .FineTraining import FineTraining
+from .FineTuning import FineTuning
 
 DEFAULT_MODEL_NAME = "llama3.2-vision"
 
-class LORA(FineTraining):
+class LORA(FineTuning):
     def __init__(self, model_name: str = DEFAULT_MODEL_NAME):
         self.model_name = model_name
 

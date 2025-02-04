@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 
 import _setup_test_env
 from database_manager.Emails import DatabaseEmails
-from fine_tuning_torch.FineTraining import FineTraining
+from src.fine_tuning_torch.FineTuning import FineTuning
 from src.fine_tuning_torch.TrainingDatasetTorch import TrainingDatasetTorch, TOKENIZER_MAX_LENGTH
 from datatypes.Score import MAX_SCORE, MIN_SCORE, Score
 
@@ -16,7 +16,7 @@ DEFAULT_NUM_EPOCHS = 1
 MAX_SCORE_NORMALIZED = 1
 MIN_SCORE_NORMALIZED = 0
 
-class SupervisedFineTrainingPytorch(FineTraining):
+class SupervisedFineTuningTorch(FineTuning):
     def __init__(self, model_name: str = DEFAULT_MODEL_NAME, tokenizer_name: str = DEFAULT_TOKENIZER_NAME, optimizer_name: str = DEFAULT_OPTIMIZER_NAME, split_size: float = 0.2, random_state: int = 1):
         self.model_name = model_name
         self.tokenizer_name = tokenizer_name
@@ -301,7 +301,7 @@ if __name__ == '__main__':
     TRAIN_EMAILS_MODEL = False
 
     db_emails = DatabaseEmails('gen_emails')
-    sft = SupervisedFineTrainingPytorch()
+    sft = SupervisedFineTuningTorch()
     if TRAIN_EMAILS_MODEL:
         dataset_path = db_emails.get_database_abspath()
         dataset = TrainingDatasetTorch(dataset_path, sft.tokenizer)

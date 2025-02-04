@@ -2,7 +2,7 @@ import torch
 from abc import ABC, abstractmethod
 from .TrainingDatasetTorch import TrainingDatasetTorch
 
-class FineTraining(ABC):
+class FineTuning(ABC):
     @abstractmethod
     def load_dataset(self, dataset: TrainingDatasetTorch):
         pass

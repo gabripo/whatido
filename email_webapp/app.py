@@ -2,10 +2,10 @@ import os, sys
 from flask import Flask, render_template, request, jsonify
 root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(root_path)
-from src.fine_tuning_torch.SFT import SupervisedFineTrainingPytorch
+from src.fine_tuning_torch.SFT import SupervisedFineTuningTorch
 
 app = Flask(__name__)
-sft = SupervisedFineTrainingPytorch()
+sft = SupervisedFineTuningTorch()
 sft.tuned_model_name = os.path.join(root_path, "bert-base-uncased_fine_tuned")
 sft.load_tuned_model()
 
