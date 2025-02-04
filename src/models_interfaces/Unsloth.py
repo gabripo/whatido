@@ -1,5 +1,5 @@
 from unsloth import FastVisionModel
-from .HFModel import HFModel
+from .ModelHF import ModelHF
 
 SUPPORTED_VISION_MODELS_4BIT = {
     "unsloth/Llama-3.2-11B-Vision-Instruct-bnb-4bit", # Llama 3.2 vision support
@@ -18,7 +18,7 @@ SUPPORTED_VISION_MODELS_4BIT = {
     "unsloth/llava-1.5-7b-hf-bnb-4bit",
  } # More models at https://huggingface.co/unsloth
 
-class UnslothVisionModel(HFModel):
+class UnslothVisionModel(ModelHF):
     def __init__(self, model_name: str = None):
         self.model_name = model_name
         self.model = None

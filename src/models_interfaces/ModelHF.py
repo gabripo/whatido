@@ -3,7 +3,7 @@ from peft import PeftModel
 from transformers import BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer
 import torch
 
-class HFModel:
+class ModelHF:
     def __init__(
             self,
             model_name: str = None,

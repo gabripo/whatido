@@ -1,5 +1,5 @@
 from src.fine_tuning_hf.TrainingDatasetHF import TrainingDatasetHF
-from src.models_interfaces.HFModel import HFModel
+from src.models_interfaces.ModelHF import ModelHF
 
 try:
     from src.models_interfaces.Unsloth import UnslothVisionModel
@@ -20,7 +20,7 @@ if __name__ == "__main__":
             model_name="gabripo/lora_model_productivity_vision",
             )
     else:
-        model = HFModel(
+        model = ModelHF(
             model_name="gabripo/lora_model_productivity_vision",
             base_model_name="unsloth/llama-3.2-11b-vision-instruct-unsloth-bnb-4bit",
             )
