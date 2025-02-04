@@ -3,7 +3,7 @@ from torch.utils.data import Dataset
 
 TOKENIZER_MAX_LENGTH = 128
 
-class TrainingDatasetPytorch(Dataset):
+class TrainingDatasetTorch(Dataset):
     def __init__(self, database_path: str, tokenizer = None, max_length: int = TOKENIZER_MAX_LENGTH):
         self.database_path = database_path
         self.tokenizer = tokenizer

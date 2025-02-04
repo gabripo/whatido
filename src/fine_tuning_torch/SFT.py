@@ -5,8 +5,8 @@ from torch.utils.data import DataLoader
 
 import _setup_test_env
 from database_manager.Emails import DatabaseEmails
-from fine_tuning.FineTraining import FineTraining
-from fine_tuning.TrainingDatasetPytorch import TrainingDatasetPytorch, TOKENIZER_MAX_LENGTH
+from fine_tuning_torch.FineTraining import FineTraining
+from src.fine_tuning_torch.TrainingDatasetTorch import TrainingDatasetTorch, TOKENIZER_MAX_LENGTH
 from datatypes.Score import MAX_SCORE, MIN_SCORE, Score
 
 DEFAULT_MODEL_NAME = "bert-base-uncased"
@@ -62,7 +62,7 @@ class SupervisedFineTrainingPytorch(FineTraining):
         self.set_device()
         self.set_tokenizer()
 
-    def load_dataset(self, dataset: TrainingDatasetPytorch):
+    def load_dataset(self, dataset: TrainingDatasetTorch):
         self.train_data = dict(zip(self.train_data.keys(), train_test_split(dataset, **self.split_options)))
         self.loaders["train"] = DataLoader(self.train_data['X_train'], **self.loaders_options)
         self.loaders["test"] = DataLoader(self.train_data['X_test'], **self.loaders_options)
@@ -304,7 +304,7 @@ if __name__ == '__main__':
     sft = SupervisedFineTrainingPytorch()
     if TRAIN_EMAILS_MODEL:
         dataset_path = db_emails.get_database_abspath()
-        dataset = TrainingDatasetPytorch(dataset_path, sft.tokenizer)
+        dataset = TrainingDatasetTorch(dataset_path, sft.tokenizer)
         sft.load_dataset(dataset)
         sft.train(num_epochs=10)
         sft.save()

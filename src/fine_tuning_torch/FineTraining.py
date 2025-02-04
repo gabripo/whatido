@@ -1,10 +1,10 @@
 import torch
 from abc import ABC, abstractmethod
-from .TrainingDatasetPytorch import TrainingDatasetPytorch
+from .TrainingDatasetTorch import TrainingDatasetTorch
 
 class FineTraining(ABC):
     @abstractmethod
-    def load_dataset(self, dataset: TrainingDatasetPytorch):
+    def load_dataset(self, dataset: TrainingDatasetTorch):
         pass
 
     def set_device(self):
